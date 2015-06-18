@@ -18,6 +18,7 @@ public class Params {
     public static int itemToShow;
     public static DisplayMetrics displaySettings=new DisplayMetrics();
     public static int displayX=0,displayY=0;
+    public static int iconOversize;
     public static void startGameField()
     {
         gameField=true;

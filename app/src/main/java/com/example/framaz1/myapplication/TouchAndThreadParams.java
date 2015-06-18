@@ -74,9 +74,11 @@ public class TouchAndThreadParams {
             canvas.drawBitmap(picture, Params.displaySettings.widthPixels - picture.getWidth(), (100)*widthOfInv/288, null);
             if(Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].goldHere>0)
                 canvas.drawBitmap(AllBitmaps.coins, Params.displaySettings.widthPixels - picture.getWidth()+4*widthOfInv/288, (100 + 4)*widthOfInv/288, null);
-            else
-                canvas.drawBitmap(Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].itemsHere.peek().picture, Params.displaySettings.widthPixels - picture.getWidth() + 4*widthOfInv/288, (100+4)*widthOfInv/288, null);
-
+            else {
+                picture=Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].itemsHere.peek().picture;
+                picture=Bitmap.createScaledBitmap(picture,picture.getWidth()*Params.iconOversize,picture.getHeight()*Params.iconOversize,false);
+                canvas.drawBitmap(picture, Params.displaySettings.widthPixels - AllBitmaps.getItemHere.getWidth() + 4 * widthOfInv / 288, (100 + 4) * widthOfInv / 288, null);
+            }
         }
         if(Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].interractable)
         {

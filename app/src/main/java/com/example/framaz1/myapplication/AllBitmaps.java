@@ -47,6 +47,21 @@ public class AllBitmaps {
 
     public static void initialize()
     {
+        for(int i=1;inventoryImage.getWidth()*i<Params.displaySettings.widthPixels-100&&inventoryImage.getHeight()*i<Params.displaySettings.heightPixels-100;i++)
+            Params.iconOversize=i;
+        getItemHere=Bitmap.createScaledBitmap(getItemHere,getItemHere.getWidth()*Params.iconOversize,getItemHere.getHeight()*Params.iconOversize,false);
+        coins=Bitmap.createScaledBitmap(coins,coins.getWidth()*Params.iconOversize,coins.getHeight()*Params.iconOversize,false);
+        use=Bitmap.createScaledBitmap(use,use.getWidth()*Params.iconOversize,use.getHeight()*Params.iconOversize,false);
+        drop=Bitmap.createScaledBitmap(drop,drop.getWidth()*Params.iconOversize,drop.getHeight()*Params.iconOversize,false);
+        unequip=Bitmap.createScaledBitmap(unequip,unequip.getWidth()*Params.iconOversize,unequip.getHeight()*Params.iconOversize,false);
+        equip=Bitmap.createScaledBitmap(equip,equip.getWidth()*Params.iconOversize,equip.getHeight()*Params.iconOversize,false);
+        inventoryIcon=Bitmap.createScaledBitmap(    inventoryIcon   ,   inventoryIcon   .getWidth()*Params.iconOversize,    inventoryIcon   .getHeight()*Params.iconOversize,false);
+        itemView=Bitmap.createScaledBitmap(    itemView   ,   itemView   .getWidth()*Params.iconOversize,    itemView   .getHeight()*Params.iconOversize,false);
+        inventoryImage=Bitmap.createScaledBitmap(    inventoryImage   ,   inventoryImage   .getWidth()*Params.iconOversize,    inventoryImage   .getHeight()*Params.iconOversize,false);
+        magicIcon=Bitmap.createScaledBitmap(    magicIcon   ,   magicIcon   .getWidth()*Params.iconOversize,    magicIcon   .getHeight()*Params.iconOversize,false);
+        waitIcon=Bitmap.createScaledBitmap(    waitIcon   ,   waitIcon   .getWidth()*Params.iconOversize,    waitIcon   .getHeight()*Params.iconOversize,false);
+        standartIconSize*=Params.iconOversize;
+
         characterMove.add(BitmapFactory.decodeResource(Params.resource, R.drawable.character_move1));
         characterMove.add(BitmapFactory.decodeResource(Params.resource, R.drawable.character_move2));
         characterAttack.add(BitmapFactory.decodeResource(Params.resource, R.drawable.character_attack1));
@@ -54,9 +69,8 @@ public class AllBitmaps {
 
         goblinMove.add(goblin);
         goblinAttack.add(goblin);
-
         numbers[0]=BitmapFactory.decodeResource(Params.resource, R.drawable.zero);
-        numbers[1]=BitmapFactory.decodeResource(Params.resource, R.drawable.one);
+        numbers[1]=BitmapFactory.decodeResource(Params.resource, R.drawable.one );
         numbers[2]=BitmapFactory.decodeResource(Params.resource, R.drawable.two);
         numbers[3]=BitmapFactory.decodeResource(Params.resource, R.drawable.three);
         numbers[4]=BitmapFactory.decodeResource(Params.resource, R.drawable.four);
