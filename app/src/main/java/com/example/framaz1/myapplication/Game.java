@@ -178,38 +178,6 @@ public class Game {
             int x=fromX,y=fromY;
             while(x!=toX||y!=toY) {
 
-                //Вверх
-
-                if (y>0&&pathFindingHelpArray[y][x] > pathFindingHelpArray[y - 1][x]) {
-                    y--;
-                    path.add("Up");
-                    continue;
-                }
-
-                //Вниз
-
-                if (y<99&&pathFindingHelpArray[y][x] > pathFindingHelpArray[y + 1][x]) {
-                    y++;
-                    path.add("Down");
-                    continue;
-                }
-
-                //Влево
-
-                if (x>0&&pathFindingHelpArray[y][x] > pathFindingHelpArray[y][x-1]) {
-                    x--;
-                    path.add("Left");
-                    continue;
-                }
-
-                //Вправо
-
-                if (x<99&&pathFindingHelpArray[y][x] > pathFindingHelpArray[y][x+1]) {
-                    x++;
-                    path.add("Right");
-                    continue;
-                }
-
                 //Вверх-Влево
 
                 if (y>0&&x>0&&pathFindingHelpArray[y][x] > pathFindingHelpArray[y-1][x-1]) {
@@ -245,6 +213,41 @@ public class Game {
                     path.add("DownLeft");
                     continue;
                 }
+
+
+                //Вверх
+
+                if (y>0&&pathFindingHelpArray[y][x] > pathFindingHelpArray[y - 1][x]) {
+                    y--;
+                    path.add("Up");
+                    continue;
+                }
+
+                //Вниз
+
+                if (y<99&&pathFindingHelpArray[y][x] > pathFindingHelpArray[y + 1][x]) {
+                    y++;
+                    path.add("Down");
+                    continue;
+                }
+
+                //Влево
+
+                if (x>0&&pathFindingHelpArray[y][x] > pathFindingHelpArray[y][x-1]) {
+                    x--;
+                    path.add("Left");
+                    continue;
+                }
+
+                //Вправо
+
+                if (x<99&&pathFindingHelpArray[y][x] > pathFindingHelpArray[y][x+1]) {
+                    x++;
+                    path.add("Right");
+                    continue;
+                }
+
+
 
             }
         }
