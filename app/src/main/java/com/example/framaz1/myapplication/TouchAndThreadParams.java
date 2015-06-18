@@ -24,13 +24,13 @@ public class TouchAndThreadParams {
     public static String getWhatPlayerDesired() {
         int widthOfInv=AllBitmaps.inventoryImage.getWidth();
         if(Params.gameField) {
-            if (Game.whereToGoX > Params.displaySettings.heightPixels - AllBitmaps.standartIconSize - 38 && Game.whereToGoY > Params.displaySettings.widthPixels - 2 * AllBitmaps.standartIconSize)
+            if (Game.whereToGoX > Params.displaySettings.heightPixels - AllBitmaps.standartIconSize  && Game.whereToGoY > Params.displaySettings.widthPixels - 2 * AllBitmaps.standartIconSize)
                 return "Inventory";
-            if (Game.whereToGoX > Params.displaySettings.heightPixels - AllBitmaps.standartIconSize - 38 && Game.whereToGoY > Params.displaySettings.widthPixels / 2 - AllBitmaps.standartIconSize && Game.whereToGoY < Params.displaySettings.widthPixels / 2)
+            if (Game.whereToGoX > Params.displaySettings.heightPixels - AllBitmaps.standartIconSize  && Game.whereToGoY > Params.displaySettings.widthPixels / 2 - AllBitmaps.standartIconSize && Game.whereToGoY < Params.displaySettings.widthPixels / 2)
                 return "Wait";
-            if(Game.whereToGoX>(100 - 38)*widthOfInv/288&&Game.whereToGoX<(100-38)*widthOfInv/288+AllBitmaps.getItemHere.getHeight()&&Game.whereToGoY>Params.displaySettings.widthPixels -AllBitmaps.getItemHere.getWidth()&&(Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].goldHere>0||Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].itemsHere.size()>0) )
+            if(Game.whereToGoX>(100 )*widthOfInv/288&&Game.whereToGoX<(100)*widthOfInv/288+AllBitmaps.getItemHere.getHeight()&&Game.whereToGoY>Params.displaySettings.widthPixels -AllBitmaps.getItemHere.getWidth()&&(Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].goldHere>0||Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].itemsHere.size()>0) )
                 return "TakeFromFloor";
-            if(Game.whereToGoX>(100 - 38+50)*widthOfInv/288&&Game.whereToGoX<(100-38+50)*widthOfInv/288+AllBitmaps.getItemHere.getHeight()&&Game.whereToGoY>Params.displaySettings.widthPixels -AllBitmaps.getItemHere.getWidth()&&Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].interractable)
+            if(Game.whereToGoX>(100 +50)*widthOfInv/288&&Game.whereToGoX<(100+50)*widthOfInv/288+AllBitmaps.getItemHere.getHeight()&&Game.whereToGoY>Params.displaySettings.widthPixels -AllBitmaps.getItemHere.getWidth()&&Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].interractable)
                 return "Interact";
             return "Move";
         }
@@ -63,27 +63,27 @@ public class TouchAndThreadParams {
         Bitmap picture;
         picture= AllBitmaps.waitIcon;
         int widthOfInv=AllBitmaps.inventoryImage.getWidth();
-        canvas.drawBitmap(picture,Params.displaySettings.widthPixels/2-AllBitmaps.standartIconSize,Params.displaySettings.heightPixels-AllBitmaps.standartIconSize-38,null);
+        canvas.drawBitmap(picture,Params.displaySettings.widthPixels/2-AllBitmaps.standartIconSize,Params.displaySettings.heightPixels-AllBitmaps.standartIconSize,null);
       // canvas.drawBitmap(picture,0,Params.displaySettings.heightPixels-AllBitmaps.standartIconSize-38,null);
         picture= AllBitmaps.magicIcon;
    //     canvas.drawBitmap(picture,Params.displaySettings.widthPixels/2,Params.displaySettings.heightPixels-AllBitmaps.standartIconSize-38,null);
         picture = AllBitmaps.inventoryIcon;
-        canvas.drawBitmap(picture, Params.displaySettings.widthPixels - 2 * AllBitmaps.standartIconSize, Params.displaySettings.heightPixels - AllBitmaps.standartIconSize - 38, null);
+        canvas.drawBitmap(picture, Params.displaySettings.widthPixels - 2 * AllBitmaps.standartIconSize, Params.displaySettings.heightPixels - AllBitmaps.standartIconSize , null);
         if(Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].goldHere>0||Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].itemsHere.size()>0) {
             picture = AllBitmaps.getItemHere;
-            canvas.drawBitmap(picture, Params.displaySettings.widthPixels - picture.getWidth(), (100 - 38)*widthOfInv/288, null);
+            canvas.drawBitmap(picture, Params.displaySettings.widthPixels - picture.getWidth(), (100)*widthOfInv/288, null);
             if(Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].goldHere>0)
-                canvas.drawBitmap(AllBitmaps.coins, Params.displaySettings.widthPixels - picture.getWidth()+4*widthOfInv/288, (100 - 38 + 4)*widthOfInv/288, null);
+                canvas.drawBitmap(AllBitmaps.coins, Params.displaySettings.widthPixels - picture.getWidth()+4*widthOfInv/288, (100 + 4)*widthOfInv/288, null);
             else
-                canvas.drawBitmap(Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].itemsHere.peek().picture, Params.displaySettings.widthPixels - picture.getWidth() + 4*widthOfInv/288, (100 - 38+4)*widthOfInv/288, null);
+                canvas.drawBitmap(Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].itemsHere.peek().picture, Params.displaySettings.widthPixels - picture.getWidth() + 4*widthOfInv/288, (100+4)*widthOfInv/288, null);
 
         }
         if(Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].interractable)
         {
             picture = AllBitmaps.getItemHere;
-            canvas.drawBitmap(picture, Params.displaySettings.widthPixels - picture.getWidth(), (100 - 38+50)*widthOfInv/288, null);
+            canvas.drawBitmap(picture, Params.displaySettings.widthPixels - picture.getWidth(), (100+50)*widthOfInv/288, null);
             picture=Bitmap.createScaledBitmap(AllBitmaps.getPictureById(Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].drawId),AllBitmaps.coins.getWidth(),AllBitmaps.coins.getHeight(),false);
-            canvas.drawBitmap(picture, Params.displaySettings.widthPixels - AllBitmaps.getItemHere.getWidth()+4*widthOfInv/288, (100 - 38 + 4+50)*widthOfInv/288, null);
+            canvas.drawBitmap(picture, Params.displaySettings.widthPixels - AllBitmaps.getItemHere.getWidth()+4*widthOfInv/288, (100  + 4+50)*widthOfInv/288, null);
         }
         return canvas;
     }
