@@ -224,6 +224,7 @@ public class TouchAndThreadParams {
                 break;
         }
         picture=item.picture;
+        picture=Bitmap.createScaledBitmap(picture,picture.getWidth()*widthOfInv/288,picture.getHeight()*widthOfInv/288,false);
      //   picture=Bitmap.createScaledBitmap(picture,(int)(picture.getWidth()*inventoryResize),(int)(picture.getHeight()*inventoryResize),false);
         canvas.drawBitmap(picture,widthToOff+(int)(8*widthOfInv/288),heightToOff+(int)(8*heightOfInv/464),null);
         TextPaint tp=new TextPaint();
