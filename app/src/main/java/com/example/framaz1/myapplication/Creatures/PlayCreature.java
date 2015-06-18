@@ -101,6 +101,8 @@ public class PlayCreature extends MotherCreature {
                     int hei=(int)(Game.whereToGoX/(88*heightOfInv/464));
                     if(wid==5)
                         wid=4;
+                    if(hei>3)
+                        hei=3;
                     int what=wid+hei*5;
                     if(Game.whereToGoX<0) what=wid-5;
                     if((what==-5&&!bodyWear.name.equals(""))||(what==-4&&!weapon.name.equals(""))||(what==-3&&!jewel.name.equals(""))

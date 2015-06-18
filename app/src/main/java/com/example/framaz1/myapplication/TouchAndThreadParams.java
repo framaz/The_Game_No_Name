@@ -48,7 +48,7 @@ public class TouchAndThreadParams {
                     Game.whereToGoX<Params.displaySettings.heightPixels-(Params.displaySettings.heightPixels/2-AllBitmaps.inventoryImage.getHeight()/2) &&
                     Game.whereToGoY>Params.displaySettings.widthPixels/2-AllBitmaps.inventoryImage.getWidth()/2 &&
                     Game.whereToGoY<Params.displaySettings.widthPixels-(Params.displaySettings.widthPixels/2-AllBitmaps.inventoryImage.getHeight()/2)) {
-                if(Game.whereToGoX>Params.displaySettings.heightPixels/2-AllBitmaps.inventoryImage.getHeight()/2-19+(int)(408*widthOfInv/288))
+                if(Game.whereToGoX>Params.displaySettings.heightPixels/2-AllBitmaps.inventoryImage.getHeight()/2+(int)(408*widthOfInv/288))
                 {
                     return "PushInventoryButton";
                 }
@@ -140,37 +140,42 @@ public class TouchAndThreadParams {
         picture=AllBitmaps.inventoryImage;
     //    picture=Bitmap.createScaledBitmap(picture,(int)(picture.getWidth()*inventoryResize),(int)(picture.getHeight()*inventoryResize),false);
         int widthToOff=Params.displaySettings.widthPixels/2-picture.getWidth()/2;
-        int heightToOff=Params.displaySettings.heightPixels/2-picture.getHeight()/2-19;
+        int heightToOff=Params.displaySettings.heightPixels/2-picture.getHeight()/2;
         int widthOfInv=AllBitmaps.inventoryImage.getWidth();
         int heightOfInv=AllBitmaps.inventoryImage.getHeight();
         canvas.drawBitmap(picture,widthToOff,heightToOff,null);
         if(!Game.player.bodyWear.name.equals("")) {
 
             picture=Game.player.bodyWear.picture;
+            picture=Bitmap.createScaledBitmap(picture,picture.getWidth()*widthOfInv/288,picture.getHeight()*widthOfInv/288,false);
      //       picture=Bitmap.createScaledBitmap(picture,(int)(picture.getWidth()*inventoryResize),(int)(picture.getHeight()*inventoryResize),false);
             canvas.drawBitmap(picture,widthToOff+(int)(16*widthOfInv/288),heightToOff+(int)(32*heightOfInv/464),null);
         }
         if(!Game.player.weapon.name.equals("")) {
 
             picture=Game.player.weapon.picture;
+            picture=Bitmap.createScaledBitmap(picture,picture.getWidth()*widthOfInv/288,picture.getHeight()*widthOfInv/288,false);
       //      picture=Bitmap.createScaledBitmap(picture,(int)(picture.getWidth()*inventoryResize),(int)(picture.getHeight()*inventoryResize),false);
             canvas.drawBitmap(picture,widthToOff+(int)(72*widthOfInv/288),heightToOff+(int)(32*heightOfInv/464),null);
         }
         if(!Game.player.jewel.name.equals("")) {
 
             picture=Game.player.jewel.picture;
+            picture=Bitmap.createScaledBitmap(picture,picture.getWidth()*widthOfInv/288,picture.getHeight()*widthOfInv/288,false);
      //       picture=Bitmap.createScaledBitmap(picture,(int)(picture.getWidth()*inventoryResize),(int)(picture.getHeight()*inventoryResize),false);
             canvas.drawBitmap(picture,widthToOff+(int)((16+56*2)*widthOfInv/288),heightToOff+(int)(32*heightOfInv/464),null);
         }
         if(!Game.player.ring1.name.equals("")) {
 
             picture=Game.player.ring1.picture;
+            picture=Bitmap.createScaledBitmap(picture,picture.getWidth()*widthOfInv/288,picture.getHeight()*widthOfInv/288,false);
      //       picture=Bitmap.createScaledBitmap(picture,(int)(picture.getWidth()*inventoryResize),(int)(picture.getHeight()*inventoryResize),false);
             canvas.drawBitmap(picture,widthToOff+(int)((16+56*3)*widthOfInv/288),heightToOff+(int)(32*heightOfInv/464),null);
         }
         if(!Game.player.ring2.name.equals("")) {
 
             picture=Game.player.ring2.picture;
+            picture=Bitmap.createScaledBitmap(picture,picture.getWidth()*widthOfInv/288,picture.getHeight()*widthOfInv/288,false);
        //     picture=Bitmap.createScaledBitmap(picture,(int)(picture.getWidth()*inventoryResize),(int)(picture.getHeight()*inventoryResize),false);
             canvas.drawBitmap(picture,widthToOff+(int)((16+56*4)*widthOfInv/288),heightToOff+(int)(32*heightOfInv/464),null);
         }
@@ -180,6 +185,7 @@ public class TouchAndThreadParams {
                 if(!Game.player.items[j + i * 5].name.equals(""))
                 {
                     picture=Game.player.items[j+i*5].picture;
+                    picture=Bitmap.createScaledBitmap(picture,picture.getWidth()*widthOfInv/288,picture.getHeight()*widthOfInv/288,false);
         //            picture=Bitmap.createScaledBitmap(picture,(int)(picture.getWidth()*inventoryResize),(int)(picture.getHeight()*inventoryResize),false);
                     canvas.drawBitmap(picture,widthToOff+(int)((16+56*j)*widthOfInv/288),heightToOff+(int)((136+90*i)*heightOfInv/464),null);
                 }
@@ -192,7 +198,7 @@ public class TouchAndThreadParams {
         picture=AllBitmaps.itemView;
        // picture=Bitmap.createScaledBitmap(picture,(int)(picture.getWidth()*inventoryResize),(int)(picture.getHeight()*inventoryResize),false);
         int widthToOff=Params.displaySettings.widthPixels/2-picture.getWidth()/2;
-        int heightToOff=Params.displaySettings.heightPixels/2-picture.getHeight()/2-19;
+        int heightToOff=Params.displaySettings.heightPixels/2-picture.getHeight()/2;
         int widthOfInv=AllBitmaps.inventoryImage.getWidth();
         int heightOfInv=AllBitmaps.inventoryImage.getHeight();
         canvas.drawBitmap(picture,widthToOff,heightToOff,null);
