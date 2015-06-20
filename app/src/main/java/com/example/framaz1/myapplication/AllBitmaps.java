@@ -9,44 +9,67 @@ import java.util.LinkedList;
  * Created by framaz1 on 22.03.2015.
  */
 public class AllBitmaps {
+    private static Bitmap originaldungeonFloor= BitmapFactory.decodeResource(Params.resource,R.drawable.tile); // 1
     private static Bitmap dungeonFloor= BitmapFactory.decodeResource(Params.resource,R.drawable.tile); // 1
-    private static Bitmap dungeonWall= BitmapFactory.decodeResource(Params.resource,R.drawable.wall); // 2
+
+    private static Bitmap originaldungeonWall= BitmapFactory.decodeResource(Params.resource,R.drawable.wall); // 2
+    private static Bitmap dungeonWall= BitmapFactory.decodeResource(Params.resource,R.drawable.wall);
+
+    private static Bitmap originalladderDown = BitmapFactory.decodeResource(Params.resource,R.drawable.ladder_down); // 3
     private static Bitmap ladderDown = BitmapFactory.decodeResource(Params.resource,R.drawable.ladder_down); // 3
+
+    private static Bitmap originalladderUp = BitmapFactory.decodeResource(Params.resource,R.drawable.ladder_up); //4
     private static Bitmap ladderUp = BitmapFactory.decodeResource(Params.resource,R.drawable.ladder_up); //4
 
-    //Character
+                     //Character   //101
 
-    private static Bitmap character = BitmapFactory.decodeResource(Params.resource, R.drawable.character); //101
+    private static Bitmap originalcharacter = BitmapFactory.decodeResource(Params.resource, R.drawable.character);
+    private static Bitmap character = BitmapFactory.decodeResource(Params.resource, R.drawable.character);
+
+    private static LinkedList<Bitmap> originalcharacterMove =new LinkedList<>();
     private static LinkedList<Bitmap> characterMove =new LinkedList<>();
+
+    private static LinkedList<Bitmap> originalcharacterAttack = new LinkedList<>();
     private static LinkedList<Bitmap> characterAttack = new LinkedList<>();
 
-    //Goblin
-    private static Bitmap goblin= BitmapFactory.decodeResource(Params.resource,R.drawable.goblin); // 102
+
+                     //Goblin // 102
+    private static Bitmap originalgoblin= BitmapFactory.decodeResource(Params.resource,R.drawable.goblin);
+    private static Bitmap goblin= BitmapFactory.decodeResource(Params.resource,R.drawable.goblin);
+
+    private static LinkedList<Bitmap> originalgoblinMove =new LinkedList<>();
     private static LinkedList<Bitmap> goblinMove =new LinkedList<>();
+
+    private static LinkedList<Bitmap> originalgoblinAttack =new LinkedList<>();
     private static LinkedList<Bitmap> goblinAttack =new LinkedList<>();
+
 
     public static int standartIconSize=64;
     public static Bitmap woodenSword=BitmapFactory.decodeResource(Params.resource,R.drawable.wooden_sword);
-    public static Bitmap waitIcon=Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Params.resource,R.drawable.wait_icon),standartIconSize,standartIconSize,false);
+    public static Bitmap waitIcon=Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Params.resource, R.drawable.wait_icon), standartIconSize, standartIconSize,false);
     public static Bitmap magicIcon=Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Params.resource,R.drawable.magic_icon),standartIconSize,standartIconSize,false);
-    public static Bitmap inventoryImage=BitmapFactory.decodeResource(Params.resource,R.drawable.inventory);
+    public static Bitmap inventoryImage=BitmapFactory.decodeResource(Params.resource, R.drawable.inventory);
     public static Bitmap itemView=BitmapFactory.decodeResource(Params.resource,R.drawable.item_view);
-    public static Bitmap inventoryIcon=Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Params.resource,R.drawable.inventory_icon),standartIconSize,standartIconSize,false);
-    public static Bitmap equip= BitmapFactory.decodeResource(Params.resource,R.drawable.equip);
+    public static Bitmap inventoryIcon=Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Params.resource, R.drawable.inventory_icon), standartIconSize, standartIconSize,false);
+    public static Bitmap equip= BitmapFactory.decodeResource(Params.resource, R.drawable.equip);
     public static Bitmap unequip= BitmapFactory.decodeResource(Params.resource,R.drawable.unequip);
     public static Bitmap drop= BitmapFactory.decodeResource(Params.resource,R.drawable.drop);
     public static Bitmap use= BitmapFactory.decodeResource(Params.resource,R.drawable.use);
     public static Bitmap coins= BitmapFactory.decodeResource(Params.resource,R.drawable.coins);
     public static Bitmap getItemHere = BitmapFactory.decodeResource(Params.resource,R.drawable.get_item_here);
-    public static Bitmap miss = BitmapFactory.decodeResource(Params.resource,R.drawable.miss);
 
+
+    public static Bitmap originalmiss = BitmapFactory.decodeResource(Params.resource,R.drawable.miss);
+    public static Bitmap miss = BitmapFactory.decodeResource(Params.resource,R.drawable.miss);
     //Numbers
 
+    public static Bitmap[] originalnumbers=new Bitmap[10];
     public static Bitmap[] numbers=new Bitmap[10];
 
 
     public static void initialize()
     {
+        Params.iconOversize=1;
         for(int i=1;inventoryImage.getWidth()*i<Params.displaySettings.widthPixels-100&&inventoryImage.getHeight()*i<Params.displaySettings.heightPixels-100;i++)
             Params.iconOversize=i;
         getItemHere=Bitmap.createScaledBitmap(getItemHere,getItemHere.getWidth()*Params.iconOversize,getItemHere.getHeight()*Params.iconOversize,false);
@@ -63,45 +86,55 @@ public class AllBitmaps {
    //     woodenSword=Bitmap.createScaledBitmap(    woodenSword   ,   woodenSword   .getWidth()*Params.iconOversize,    woodenSword   .getHeight()*Params.iconOversize,false);
         standartIconSize*=Params.iconOversize;
 
-        characterMove.add(BitmapFactory.decodeResource(Params.resource, R.drawable.character_move1));
-        characterMove.add(BitmapFactory.decodeResource(Params.resource, R.drawable.character_move2));
-        characterAttack.add(BitmapFactory.decodeResource(Params.resource, R.drawable.character_attack1));
-        characterAttack.add(BitmapFactory.decodeResource(Params.resource, R.drawable.character_attack2));
+        originalcharacterMove.add(BitmapFactory.decodeResource(Params.resource, R.drawable.character_move1));
+        originalcharacterMove.add(BitmapFactory.decodeResource(Params.resource, R.drawable.character_move2));
+        originalcharacterAttack.add(BitmapFactory.decodeResource(Params.resource, R.drawable.character_attack1));
+        originalcharacterAttack.add(BitmapFactory.decodeResource(Params.resource, R.drawable.character_attack2));
 
-        goblinMove.add(goblin);
-        goblinAttack.add(goblin);
-        numbers[0]=BitmapFactory.decodeResource(Params.resource, R.drawable.zero);
-        numbers[1]=BitmapFactory.decodeResource(Params.resource, R.drawable.one );
-        numbers[2]=BitmapFactory.decodeResource(Params.resource, R.drawable.two);
-        numbers[3]=BitmapFactory.decodeResource(Params.resource, R.drawable.three);
-        numbers[4]=BitmapFactory.decodeResource(Params.resource, R.drawable.four);
-        numbers[5]=BitmapFactory.decodeResource(Params.resource, R.drawable.five);
-        numbers[6]=BitmapFactory.decodeResource(Params.resource, R.drawable.six);
-        numbers[7]=BitmapFactory.decodeResource(Params.resource, R.drawable.seven);
-        numbers[8]=BitmapFactory.decodeResource(Params.resource, R.drawable.eight);
-        numbers[9]=BitmapFactory.decodeResource(Params.resource, R.drawable.nine);
+        originalgoblinMove.add(goblin);
+        originalgoblinAttack.add(goblin);
+        originalnumbers[0]=BitmapFactory.decodeResource(Params.resource, R.drawable.zero);
+        originalnumbers[1]=BitmapFactory.decodeResource(Params.resource, R.drawable.one );
+        originalnumbers[2]=BitmapFactory.decodeResource(Params.resource, R.drawable.two);
+        originalnumbers[3]=BitmapFactory.decodeResource(Params.resource, R.drawable.three);
+        originalnumbers[4]=BitmapFactory.decodeResource(Params.resource, R.drawable.four);
+        originalnumbers[5]=BitmapFactory.decodeResource(Params.resource, R.drawable.five);
+        originalnumbers[6]=BitmapFactory.decodeResource(Params.resource, R.drawable.six);
+        originalnumbers[7]=BitmapFactory.decodeResource(Params.resource, R.drawable.seven);
+        originalnumbers[8]=BitmapFactory.decodeResource(Params.resource, R.drawable.eight);
+        originalnumbers[9]=BitmapFactory.decodeResource(Params.resource, R.drawable.nine);
     }
     public static void changeSize()
     {
-        dungeonFloor=Bitmap.createScaledBitmap(dungeonFloor,Params.size,Params.size,false);
-        dungeonWall=Bitmap.createScaledBitmap(dungeonWall,Params.size,Params.size,false);
-        character=Bitmap.createScaledBitmap(character,Params.size,Params.size,false);
-        goblin=Bitmap.createScaledBitmap(goblin,Params.size,Params.size,false);
-        ladderDown=Bitmap.createScaledBitmap(ladderDown,Params.size,Params.size,false);
-        ladderUp=Bitmap.createScaledBitmap(ladderUp,Params.size,Params.size,false);
+        dungeonFloor=Bitmap.createScaledBitmap(originaldungeonFloor,Params.size,Params.size,false);
+        dungeonWall=Bitmap.createScaledBitmap(originaldungeonWall,Params.size,Params.size,false);
+        character=Bitmap.createScaledBitmap(originalcharacter,Params.size,Params.size,false);
+        goblin=Bitmap.createScaledBitmap(originalgoblin,Params.size,Params.size,false);
+        ladderDown=Bitmap.createScaledBitmap(originalladderDown,Params.size,Params.size,false);
+        ladderUp=Bitmap.createScaledBitmap(originalladderUp,Params.size,Params.size,false);
 
-        for(int i=0;i< characterMove.size();i++)
-            characterMove.add(Bitmap.createScaledBitmap(characterMove.poll(),Params.size,Params.size,false));
-        for(int i=0;i< characterAttack.size();i++)
-            characterAttack.add(Bitmap.createScaledBitmap(characterAttack.poll(),Params.size,Params.size,false));
+        for(int i=0;i< originalcharacterMove.size();i++) {
+            characterMove.clear();
+            characterMove.add(Bitmap.createScaledBitmap(originalcharacterMove.get(i), Params.size, Params.size, false));
+        }
+        for(int i=0;i< originalcharacterAttack.size();i++) {
+            characterAttack.clear();
+            characterAttack.add(Bitmap.createScaledBitmap(originalcharacterAttack.get(i), Params.size, Params.size, false));
+        }
    //     coins=Bitmap.createScaledBitmap(coins,Params.size,Params.size,false);
-        for(int i=0;i< goblinMove.size();i++)
-            goblinMove.add(Bitmap.createScaledBitmap(goblinMove.poll(),Params.size,Params.size,false));
-        for(int i=0;i< goblinAttack.size();i++)
-            goblinAttack.add(Bitmap.createScaledBitmap(goblinAttack.poll(),Params.size,Params.size,false));
-        for(int i=0;i<10;i++)
-            numbers[i]=Bitmap.createScaledBitmap(numbers[i],numbers[i].getHeight()*Params.size/64,numbers[i].getWidth()*Params.size/64,false);
-        miss=Bitmap.createScaledBitmap(miss,miss.getWidth()*Params.size/64,miss.getHeight()*Params.size/64,false);
+        for(int i=0;i< originalgoblinMove.size();i++) {
+            goblinMove.clear();
+            goblinMove.add(Bitmap.createScaledBitmap(originalgoblinMove.get(i), Params.size, Params.size, false));
+        }
+        for(int i=0;i< originalgoblinAttack.size();i++) {
+            goblinAttack.clear();
+            goblinAttack.add(Bitmap.createScaledBitmap(originalgoblinAttack.get(i), Params.size, Params.size, false));
+        }
+        for(int i=0;i<10;i++) {
+            numbers[i] = Bitmap.createScaledBitmap(originalnumbers[i], originalnumbers[i].getHeight() * Params.size / 64, originalnumbers[i].getWidth() * Params.size / 64, false);
+        }
+
+            miss = Bitmap.createScaledBitmap(originalmiss, originalmiss.getWidth() * Params.size / 64, originalmiss.getHeight() * Params.size / 64, false);
     }
 
     public static Bitmap getPictureById(int id)
