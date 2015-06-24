@@ -29,41 +29,55 @@ public class PlayCreature extends MotherCreature {
         String choice;
         Game.doneMyTurn=false;
         point: while (!Game.doneMyTurn) {
-            synchronized (TouchAndThreadParams.gameSync) {
-                try {
-                    TouchAndThreadParams.gameSync.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            if(pathing.size()<1) {
+                synchronized (TouchAndThreadParams.gameSync) {
+                    try {
+                        TouchAndThreadParams.gameSync.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
+                choice = TouchAndThreadParams.getWhatPlayerDesired();
             }
-            choice = TouchAndThreadParams.getWhatPlayerDesired();
+            else
+            choice="Move";
             switch (choice) {
 
                 //OnField
 
                 case "Move":
-                    int x, y;
-                    y = (Game.whereToGoY + Params.displayY) / Params.size;
-                    x = (Game.whereToGoX + Params.displayX) / Params.size;
-                    if (Math.max(Math.abs(yCoordinates - x), Math.abs(xCoordinates - y)) < 2 && Game.gamedepths[Game.layer].field[x][y].iswall == true)
-                        continue point;
-                    if((Game.gamedepths[Game.layer].field[x][y+1].iswall||Game.gamedepths[Game.layer].field[x][y+1].isMobHere)&&
-                            (Game.gamedepths[Game.layer].field[x+1][y+1].iswall||Game.gamedepths[Game.layer].field[x+1][y+1].isMobHere)&&
-                            (Game.gamedepths[Game.layer].field[x+1][y].iswall||Game.gamedepths[Game.layer].field[x+1][y].isMobHere)&&
-                            (Game.gamedepths[Game.layer].field[x+1][y-1].iswall||Game.gamedepths[Game.layer].field[x+1][y-1].isMobHere)&&
-                            (Game.gamedepths[Game.layer].field[x][y-1].iswall||Game.gamedepths[Game.layer].field[x][y-1].isMobHere)&&
-                            (Game.gamedepths[Game.layer].field[x-1][y-1].iswall||Game.gamedepths[Game.layer].field[x-1][y-1].isMobHere)&&
-                            (Game.gamedepths[Game.layer].field[x-1][y].iswall||Game.gamedepths[Game.layer].field[x-1][y].isMobHere)&&
-                            (Game.gamedepths[Game.layer].field[x-1][y+1].iswall||Game.gamedepths[Game.layer].field[x-1][y+1].isMobHere))
-                        continue point;
-                    if (Game.gamedepths[Game.layer].field[x][y].isMobHere == false || Math.max(Math.abs(yCoordinates - x), Math.abs(xCoordinates - y)) > 1) {
-                        LinkedList<String> pathing = Game.pathFinding(this, y, x);
-                        move(pathing.poll(), Game.gamedepths[Game.layer].field[yCoordinates][xCoordinates]);
-                    } else
-                    if(Math.max(Math.abs(yCoordinates - x), Math.abs(xCoordinates - y)) == 1)
-                        attack(y, x);
+                    if(pathing.size()<1) {
+
+                        int x, y;
+                        y = (Game.whereToGoY + Params.displayY) / Params.size;
+                        x = (Game.whereToGoX + Params.displayX) / Params.size;
+                        if (Math.max(Math.abs(yCoordinates - x), Math.abs(xCoordinates - y)) < 2 && Game.gamedepths[Game.layer].field[x][y].iswall == true)
+                            continue point;
+                        if ((Game.gamedepths[Game.layer].field[x][y + 1].iswall || Game.gamedepths[Game.layer].field[x][y + 1].isMobHere) &&
+                                (Game.gamedepths[Game.layer].field[x + 1][y + 1].iswall || Game.gamedepths[Game.layer].field[x + 1][y + 1].isMobHere) &&
+                                (Game.gamedepths[Game.layer].field[x + 1][y].iswall || Game.gamedepths[Game.layer].field[x + 1][y].isMobHere) &&
+                                (Game.gamedepths[Game.layer].field[x + 1][y - 1].iswall || Game.gamedepths[Game.layer].field[x + 1][y - 1].isMobHere) &&
+                                (Game.gamedepths[Game.layer].field[x][y - 1].iswall || Game.gamedepths[Game.layer].field[x][y - 1].isMobHere) &&
+                                (Game.gamedepths[Game.layer].field[x - 1][y - 1].iswall || Game.gamedepths[Game.layer].field[x - 1][y - 1].isMobHere) &&
+                                (Game.gamedepths[Game.layer].field[x - 1][y].iswall || Game.gamedepths[Game.layer].field[x - 1][y].isMobHere) &&
+                                (Game.gamedepths[Game.layer].field[x - 1][y + 1].iswall || Game.gamedepths[Game.layer].field[x - 1][y + 1].isMobHere))
+                            continue point;
+                        if (Game.gamedepths[Game.layer].field[x][y].isMobHere == false || Math.max(Math.abs(yCoordinates - x), Math.abs(xCoordinates - y)) > 1) {
+                            pathing = Game.pathFinding(this, y, x);
+                            if(Game.player.xCoordinates*Params.size-Params.displayY>100&&Game.player.xCoordinates*Params.size-Params.displayY<Params.displaySettings.widthPixels-100 &&
+                                    Game.player.yCoordinates*Params.size-Params.displayX>0&&Game.player.yCoordinates*Params.size-Params.displayX<Params.displaySettings.heightPixels-100-Params.size) {
+
+                            }
+                            else
+                            Params.centerOnPlayer();
+                            move(pathing.poll(), Game.gamedepths[Game.layer].field[yCoordinates][xCoordinates]);
+                        } else if (Math.max(Math.abs(yCoordinates - x), Math.abs(xCoordinates - y)) == 1)
+                            attack(y, x);
+                        else
+                            break;
+                    }
                     else
-                    break;
+                        move(pathing.poll(), Game.gamedepths[Game.layer].field[yCoordinates][xCoordinates]);
                     Game.doneMyTurn = true;
                     break;
 

@@ -60,7 +60,7 @@ public class AnimationThread extends Thread {
                         long startTime = System.currentTimeMillis();
                         LinkedList<Bitmap> animation=AllBitmaps.getMoveAnimationById(whom.drawId);
                         while (System.currentTimeMillis() < startTime + 250) {
-
+                        int startX=Params.displayX,startY=Params.displayY;
                         //    canvas = surfaceHolder.lockCanvas(null);
                         //    canvas.drawBitmap(Game.gamedepths[Game.layer].field[fromY][fromX].picture, fromX * Params.size - Params.displayY, fromY * Params.size - Params.displayX, null);
                         //    canvas.drawBitmap(Game.gamedepths[Game.layer].field[whom.yCoordinates][whom.xCoordinates].picture, whom.xCoordinates * Params.size - Params.displayY, whom.yCoordinates * Params.size - Params.displayX, null);
@@ -131,15 +131,23 @@ public class AnimationThread extends Thread {
                                     picture=animation.get(i);
                                     if(whom.orientatedToRight==false)
                                         picture=Bitmap.createScaledBitmap(picture,-picture.getWidth(),picture.getHeight(),false);
+                                    if(Game.player.drawId==whom.drawId)
+                                    {
+                                        if((fromX * Params.size - Params.displayY<100&&whom.xCoordinates - fromX<0)||(fromX * Params.size - Params.displayY>Params.displaySettings.widthPixels-100-Params.size&&whom.xCoordinates - fromX>0))
+                                            Params.displayY=(int)(startY+(whom.xCoordinates - fromX) * Params.size * (time) / 250);
+                                        if((fromY * Params.size - Params.displayX<100&&whom.yCoordinates - fromY<0)||(fromY * Params.size - Params.displayX>Params.displaySettings.heightPixels-Params.size-AllBitmaps.waitIcon.getWidth()-100&&whom.yCoordinates - fromY>0))
+                                            Params.displayX=(int)(startX+(whom.yCoordinates - fromY) * Params.size * (time) / 250);
+                                    }
                                     canvas.drawBitmap(picture, fromX * Params.size - Params.displayY + (whom.xCoordinates - fromX) * Params.size * (time) / 250,
                                             fromY * Params.size - Params.displayX + (whom.yCoordinates - fromY) * Params.size * (time) / 250, null);
+
                                 }
                                 else {
                                     picture=AllBitmaps.getPictureById(whom.drawId);
                                     if (whom.orientatedToRight == false)
                                         picture = Bitmap.createScaledBitmap(picture, -picture.getWidth(), picture.getHeight(), false);
-                                    canvas.drawBitmap(picture, fromX * Params.size - Params.displayY + (whom.xCoordinates - fromX) * Params.size * (1),
-                                            fromY * Params.size - Params.displayX + (whom.yCoordinates - fromY) * Params.size * (1), null);
+                                    canvas.drawBitmap(picture, fromX * Params.size - Params.displayY + (whom.xCoordinates - fromX) * Params.size,
+                                            fromY * Params.size - Params.displayX + (whom.yCoordinates - fromY) * Params.size, null);
                                 }
 
                                 //Рисование меню

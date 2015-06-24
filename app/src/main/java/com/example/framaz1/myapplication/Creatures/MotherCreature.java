@@ -18,6 +18,7 @@ public class MotherCreature {
     public int xCoordinates,yCoordinates;
     public int drawId;
     public int maxVision;
+    public LinkedList<String> pathing;
     public MotherItem helmet,bodyWear,weapon,ring1,ring2,jewel;
     public double moveDelay;
     public double weight;
@@ -32,6 +33,7 @@ public class MotherCreature {
         ring1=new EmptyItem();
         ring2=new EmptyItem();
         jewel=new EmptyItem();
+        pathing=new LinkedList<String>();
         orientatedToRight=true;
         moveDelay=100;
         gold=300;

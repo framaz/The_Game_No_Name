@@ -29,6 +29,7 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
             TouchAndThreadParams.flastY = (int) event.getX();
             TouchAndThreadParams.flastX = (int) event.getY();
             TouchAndThreadParams.whenClicked=System.currentTimeMillis();
+            Game.player.pathing.clear();
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             {
                 if(event.getPointerCount()==1) {
@@ -74,12 +75,14 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
                             if(Params.size<32) Params.size=32;
                             if(Params.size>96) Params.size=96;
                             AllBitmaps.changeSize();
-                            Params.displayY+=Params.displaySettings.widthPixels/2;
-                            Params.displayX+=Params.displaySettings.heightPixels/2;
-                            Params.displayY+=(newLength - length) / 10*(Params.displayY)/size1;
-                            Params.displayX+=(newLength - length) / 10*(Params.displayX)/size1;
-                            Params.displayY-=Params.displaySettings.widthPixels/2;
-                            Params.displayX-=Params.displaySettings.heightPixels/2;
+                            if(Params.size!=32&&Params.size!=96) {
+                                Params.displayY += Params.displaySettings.widthPixels / 2;
+                                Params.displayX += Params.displaySettings.heightPixels / 2;
+                                Params.displayY += (newLength - length) / 10 * (Params.displayY) / size1;
+                                Params.displayX += (newLength - length) / 10 * (Params.displayX) / size1;
+                                Params.displayY -= Params.displaySettings.widthPixels / 2;
+                                Params.displayX -= Params.displaySettings.heightPixels / 2;
+                            }
                     //        Params.displayY-=(Params.size-size1)*Params.displaySettings.widthPixels/2/Params.size;
                    //         Params.displayX-=(Params.size-size1)*Params.displaySettings.heightPixels/2/Params.size;
                             if (Params.displayY < 0)
