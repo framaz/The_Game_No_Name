@@ -137,6 +137,14 @@ public class AnimationThread extends Thread {
                                             Params.displayY=(int)(startY+(whom.xCoordinates - fromX) * Params.size * (time) / 250);
                                         if((fromY * Params.size - Params.displayX<100&&whom.yCoordinates - fromY<0)||(fromY * Params.size - Params.displayX>Params.displaySettings.heightPixels-Params.size-AllBitmaps.waitIcon.getWidth()-100&&whom.yCoordinates - fromY>0))
                                             Params.displayX=(int)(startX+(whom.yCoordinates - fromY) * Params.size * (time) / 250);
+                                        if (Params.displayY < 0)
+                                            Params.displayY = 0;
+                                        if (Params.displayX < 0)
+                                            Params.displayX = 0;
+                                        if (Params.displayX > 100 * Params.size - Params.displaySettings.heightPixels + AllBitmaps.standartIconSize)
+                                            Params.displayX = 100 * Params.size - Params.displaySettings.heightPixels + AllBitmaps.standartIconSize;
+                                        if (Params.displayY > 100 * Params.size - Params.displaySettings.widthPixels)
+                                            Params.displayY = 100 * Params.size - Params.displaySettings.widthPixels;
                                     }
                                     canvas.drawBitmap(picture, fromX * Params.size - Params.displayY + (whom.xCoordinates - fromX) * Params.size * (time) / 250,
                                             fromY * Params.size - Params.displayX + (whom.yCoordinates - fromY) * Params.size * (time) / 250, null);
@@ -229,10 +237,7 @@ public class AnimationThread extends Thread {
                         else
                         {
                             String temp=Integer.toString(attackHelper.damage);
-                            for(int i=0;i<temp.length();i++)
-                            {
-                                toOut.add(AllBitmaps.numbers[temp.charAt(i)-'0']);
-                            }
+                            toOut=TouchAndThreadParams.textToPicture(temp);
                         }
                         startTime=System.currentTimeMillis();
                         int widthOfStatus=0;
@@ -254,7 +259,9 @@ public class AnimationThread extends Thread {
                         howManyToGo/=2;
                         if(reversed)
                             howManyToGo=-howManyToGo;
+
                         //Drawings
+
                         while (System.currentTimeMillis() < startTime + 750) {
                             canvas = surfaceHolder.lockCanvas(null);
 

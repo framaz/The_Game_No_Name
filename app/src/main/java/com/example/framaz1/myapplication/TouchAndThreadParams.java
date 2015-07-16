@@ -2,6 +2,7 @@ package com.example.framaz1.myapplication;
 
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.text.Layout;
@@ -10,6 +11,8 @@ import android.text.TextPaint;
 
 import com.example.framaz1.myapplication.Items.EmptyItem;
 import com.example.framaz1.myapplication.Items.MotherItem;
+
+import java.util.LinkedList;
 
 public class TouchAndThreadParams {
     public static boolean justClicked, secondFinger;
@@ -28,6 +31,8 @@ public class TouchAndThreadParams {
                 return "Inventory";
             if (Game.whereToGoX > Params.displaySettings.heightPixels - AllBitmaps.standartIconSize  && Game.whereToGoY > Params.displaySettings.widthPixels / 2 - AllBitmaps.standartIconSize && Game.whereToGoY < Params.displaySettings.widthPixels / 2)
                 return "Wait";
+            if (Game.whereToGoX<AllBitmaps.standartIconSize&&Game.whereToGoY<AllBitmaps.standartIconSize)
+                return "Stats";
             if(Game.whereToGoX>(100 )*widthOfInv/288&&Game.whereToGoX<(100)*widthOfInv/288+AllBitmaps.getItemHere.getHeight()&&Game.whereToGoY>Params.displaySettings.widthPixels -AllBitmaps.getItemHere.getWidth()&&(Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].goldHere>0||Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].itemsHere.size()>0) )
                 return "TakeFromFloor";
             if(Game.whereToGoX>(100 +50)*widthOfInv/288&&Game.whereToGoX<(100+50)*widthOfInv/288+AllBitmaps.getItemHere.getHeight()&&Game.whereToGoY>Params.displaySettings.widthPixels -AllBitmaps.getItemHere.getWidth()&&Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].interractable)
@@ -40,6 +45,19 @@ public class TouchAndThreadParams {
                     Game.whereToGoY>Params.displaySettings.widthPixels/2-AllBitmaps.inventoryImage.getWidth()/2 &&
                     Game.whereToGoY<Params.displaySettings.widthPixels-(Params.displaySettings.widthPixels/2-AllBitmaps.inventoryImage.getHeight()/2))
                 return "ChooseItem";
+            else
+                return "Back";
+        }
+        if(Params.stats) {
+            if(Game.whereToGoX>Params.displaySettings.heightPixels/2-AllBitmaps.statsView.getHeight()/2 &&
+                    Game.whereToGoX<Params.displaySettings.heightPixels-(Params.displaySettings.heightPixels/2-AllBitmaps.statsView.getHeight()/2) &&
+                    Game.whereToGoY>Params.displaySettings.widthPixels/2-AllBitmaps.statsView.getWidth()/2 &&
+                    Game.whereToGoY<Params.displaySettings.widthPixels-(Params.displaySettings.widthPixels/2-AllBitmaps.statsView.getHeight()/2)) {
+                if(Game.whereToGoY>246*widthOfInv/288+Params.displaySettings.widthPixels/2-AllBitmaps.statsView.getWidth()/2 &&
+                        Game.whereToGoX>54*widthOfInv/288+Params.displaySettings.heightPixels/2-AllBitmaps.statsView.getHeight()/2 &&
+                        Game.whereToGoX<240*widthOfInv/288+Params.displaySettings.heightPixels/2-AllBitmaps.statsView.getHeight()/2)
+                    return "StatUp";
+            }
             else
                 return "Back";
         }
@@ -69,6 +87,8 @@ public class TouchAndThreadParams {
    //     canvas.drawBitmap(picture,Params.displaySettings.widthPixels/2,Params.displaySettings.heightPixels-AllBitmaps.standartIconSize-38,null);
         picture = AllBitmaps.inventoryIcon;
         canvas.drawBitmap(picture, Params.displaySettings.widthPixels - 2 * AllBitmaps.standartIconSize, Params.displaySettings.heightPixels - AllBitmaps.standartIconSize , null);
+        picture = AllBitmaps.statsIcon;
+        canvas.drawBitmap(picture, 0, 0, null);
         if(Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].goldHere>0||Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].itemsHere.size()>0) {
             picture = AllBitmaps.getItemHere;
             canvas.drawBitmap(picture, Params.displaySettings.widthPixels - picture.getWidth(), (100)*widthOfInv/288, null);
@@ -134,6 +154,54 @@ public class TouchAndThreadParams {
         _canvas.translate(_left, _top);
         drawingTextLayout.draw(_canvas);
         _canvas.restore();
+    }
+    public static LinkedList<Bitmap> textToPicture(String str) {
+        //TODO all others
+        LinkedList<Bitmap> list=new LinkedList<>();
+        for(int i=0;i<str.length();i++)
+        {
+            if(str.charAt(i)-'0'>=0&&str.charAt(i)-'0'<=9)
+                list.add(AllBitmaps.originalnumbers[str.charAt(i)-'0']);
+            if(str.charAt(i)==' ')
+                list.add(AllBitmaps.space);
+        }
+
+        return list;
+    }
+    public static Canvas drawMultiLineText(Canvas canvas,String string,int left, int right, int top, int bottom, double overSize) {
+        LinkedList<Bitmap> allPictures=textToPicture(string);
+        int floatingPoint=0;
+        int height=0;
+        LinkedList<Bitmap> word=new LinkedList<>();
+        for(int i=0;i<allPictures.size();i++)
+        {
+            Bitmap picture=allPictures.poll();
+            allPictures.add(Bitmap.createScaledBitmap(picture,(int)(14*overSize),(int)(16*overSize),true));
+        }
+        asd: for(int i=0;i<string.length();i++)
+        {
+            word.add(allPictures.poll());
+            if(string.charAt(i)==' '||i==string.length()-1)
+            {
+                int widthOfWord=0;
+                for(int j=0;j<word.size();j++)
+                    widthOfWord+=word.get(j).getWidth();
+                if(left+floatingPoint+widthOfWord>=right)
+                {
+                    height+=allPictures.get(0).getHeight()+4;
+                    floatingPoint=0;
+                    if(top+height+allPictures.get(0).getHeight()>=bottom)
+                        break asd;
+                }
+                for(int j=0;j<word.size();j++)
+                {
+                    canvas.drawBitmap(word.get(j),left+floatingPoint,top+height,null);
+                    floatingPoint+=word.get(j).getWidth();
+                }
+                word.clear();
+            }
+        }
+        return canvas;
     }
     public static Canvas drawInventory(Canvas canvas) {
         Bitmap picture;
@@ -224,13 +292,13 @@ public class TouchAndThreadParams {
                 break;
         }
         picture=item.picture;
-        picture=Bitmap.createScaledBitmap(picture,32*widthOfInv/288,32*widthOfInv/288,false);
+        picture=Bitmap.createScaledBitmap(picture, 32 * widthOfInv / 288, 32 * widthOfInv / 288, false);
      //   picture=Bitmap.createScaledBitmap(picture,(int)(picture.getWidth()*inventoryResize),(int)(picture.getHeight()*inventoryResize),false);
-        canvas.drawBitmap(picture,widthToOff+(int)(8*widthOfInv/288),heightToOff+(int)(8*heightOfInv/464),null);
+        canvas.drawBitmap(picture, widthToOff + (int) (8 * widthOfInv / 288), heightToOff + (int) (8 * heightOfInv / 464), null);
         TextPaint tp=new TextPaint();
-        tp.setTextSize((float)(8*widthOfInv/288));
-        drawMultiLineEllipsizedText(canvas,tp,widthToOff+54*widthOfInv/288,heightToOff+(int)(6*widthOfInv/288),600,600,item.name);
-        drawMultiLineEllipsizedText(canvas,tp,widthToOff+(int)(6*widthOfInv/288),heightToOff+(int)(56*widthOfInv/288),widthToOff+(int)(280*widthOfInv/288),heightToOff+(int)(400*widthOfInv/288),item.description);
+        tp.setTextSize((float) (8 * widthOfInv / 288));
+        drawMultiLineEllipsizedText(canvas, tp, widthToOff + 54 * widthOfInv / 288, heightToOff + (int) (6 * widthOfInv / 288), 600, 600, item.name);
+        drawMultiLineText(canvas, item.description, widthToOff + (int) (6 * widthOfInv / 288), widthToOff + (int) (280 * widthOfInv / 288), heightToOff + (int) (56 * widthOfInv / 288), heightToOff + (int) (400*widthOfInv/288),1);
 
         //To unEquip
 
@@ -262,6 +330,36 @@ public class TouchAndThreadParams {
         {
             picture = AllBitmaps.drop;
             canvas.drawBitmap(picture, widthToOff + (int) (picture.getWidth())*2, heightToOff + (int) (408*widthOfInv/288), null);
+        }
+        return canvas;
+    }
+    public static Canvas drawStats(Canvas canvas) {
+        Bitmap picture;
+        picture=AllBitmaps.statsView;
+        // picture=Bitmap.createScaledBitmap(picture,(int)(picture.getWidth()*inventoryResize),(int)(picture.getHeight()*inventoryResize),false);
+        int widthToOff=Params.displaySettings.widthPixels/2-picture.getWidth()/2;
+        int heightToOff=Params.displaySettings.heightPixels/2-picture.getHeight()/2;
+        int widthOfInv=AllBitmaps.inventoryImage.getWidth();
+        int heightOfInv=AllBitmaps.inventoryImage.getHeight();
+        canvas.drawBitmap(picture,widthToOff,heightToOff,null);
+        picture=AllBitmaps.getPictureById(101);
+        picture=Bitmap.createScaledBitmap(picture,32*widthOfInv/288,32*widthOfInv/288,false);
+        //   picture=Bitmap.createScaledBitmap(picture,(int)(picture.getWidth()*inventoryResize),(int)(picture.getHeight()*inventoryResize),false);
+        canvas.drawBitmap(picture,widthToOff+(int)(8*widthOfInv/288),heightToOff+(int)(8*heightOfInv/464),null);
+        //169 - Center
+        canvas=drawMultiLineText(canvas,Integer.toString(Game.player.lvlUps),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+9*widthOfInv/288,heightToOff+26*widthOfInv/288,4);
+        canvas=drawMultiLineText(canvas,Integer.toString(Game.player.maxHP),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+60*widthOfInv/288,heightToOff+200*widthOfInv/288,4);
+        canvas=drawMultiLineText(canvas,Integer.toString(Game.player.str),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+104*widthOfInv/288,heightToOff+200*widthOfInv/288,4);
+        canvas=drawMultiLineText(canvas,Integer.toString(Game.player.intel),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+150*widthOfInv/288,heightToOff+200*widthOfInv/288,4);
+        canvas=drawMultiLineText(canvas,Integer.toString(Game.player.agi),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+196*widthOfInv/288,heightToOff+200*widthOfInv/288,4);
+        //246 - for plus
+        if(Game.player.lvlUps>0) {
+            picture = AllBitmaps.plus;
+            picture = Bitmap.createScaledBitmap(picture, picture.getWidth() * widthOfInv / 288, picture.getHeight()*widthOfInv / 288, false);
+            canvas.drawBitmap(picture,246*widthOfInv/288+widthToOff,58*widthOfInv/288+heightToOff,null);
+            canvas.drawBitmap(picture,246*widthOfInv/288+widthToOff,104*widthOfInv/288+heightToOff,null);
+            canvas.drawBitmap(picture,246*widthOfInv/288+widthToOff,150*widthOfInv/288+heightToOff,null);
+            canvas.drawBitmap(picture,246*widthOfInv/288+widthToOff,196*widthOfInv/288+heightToOff,null);
         }
         return canvas;
     }

@@ -83,6 +83,10 @@ class DrawThread extends Thread {
                     {
                         canvas=TouchAndThreadParams.drawItem(canvas);
                     }
+                    if(Params.stats)
+                    {
+                        canvas=TouchAndThreadParams.drawStats(canvas);
+                    }
                 } finally {
                     if (canvas != null) {
                         // отрисовка выполнена. выводим результат на экран

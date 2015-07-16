@@ -12,7 +12,7 @@ import com.example.framaz1.myapplication.Items.MotherItem;
  * Created by framaz1 on 04.03.2015.
  */
 public class Params {
-    public static boolean menu=false,inventory=false,map,gameField=true,item=false;
+    public static boolean menu=false,inventory=false,map,gameField=true,item=false,stats=false;
     public static int size=64;
     public static Resources resource;
     public static int itemToShow;
@@ -26,6 +26,7 @@ public class Params {
         inventory=false;
         map=false;
         item=false;
+        stats=false;
     }
     public static void startInventory()
     {
@@ -34,6 +35,7 @@ public class Params {
         menu=false;
         map=false;
         item=false;
+        stats=false;
     }
     public static void startItem(int itemTo)
     {
@@ -42,7 +44,18 @@ public class Params {
         menu=false;
         map=false;
         item=true;
+        stats=false;
         itemToShow=itemTo;
+
+    }
+    public static void startStats()
+    {
+        inventory=false;
+        gameField=false;
+        menu=false;
+        map=false;
+        item=false;
+        stats=true;
     }
     public static void centerOnPlayer()
     {

@@ -16,9 +16,12 @@ public class PlayCreature extends MotherCreature {
     {
         super();
         health=10;
+        maxHP=health;
         maxVision=10000;
         drawId=101;
         str=10;
+        experience=9;        //TODO remove this
+        lvlUps=3;
         intel=10;
         agi=10;
         items[0]=new WoodenSword();
@@ -87,6 +90,13 @@ public class PlayCreature extends MotherCreature {
                     break;
                 case "Inventory":
                     Params.startInventory();
+                    synchronized (TouchAndThreadParams.outStreamSync)
+                    {
+                        TouchAndThreadParams.outStreamSync.notifyAll();
+                    }
+                    break;
+                case "Stats":
+                    Params.startStats();
                     synchronized (TouchAndThreadParams.outStreamSync)
                     {
                         TouchAndThreadParams.outStreamSync.notifyAll();
@@ -188,6 +198,30 @@ public class PlayCreature extends MotherCreature {
                     Params.startInventory();
                     synchronized (TouchAndThreadParams.outStreamSync) {
                         TouchAndThreadParams.outStreamSync.notifyAll();
+                    }
+                    break;
+                //in stats
+                case "StatUp":
+                    if(lvlUps>=1) {
+                        widthOfInv = AllBitmaps.statsView.getWidth();
+                        heightOfInv = AllBitmaps.statsView.getHeight();
+                        Game.whereToGoX = Game.whereToGoX - (Params.displaySettings.heightPixels / 2 - AllBitmaps.statsView.getHeight() / 2) - 54 * widthOfInv / 288;
+                        int whatStatToUp = (int) (Game.whereToGoX / (46 * widthOfInv / 288));
+                        switch (whatStatToUp) {
+                            case 0:
+                                maxHP += 5;
+                                break;
+                            case 1:
+                                str++;
+                                break;
+                            case 2:
+                                intel++;
+                                break;
+                            case 3:
+                                agi++;
+                                break;
+                        }
+                        lvlUps--;
                     }
                     break;
                 case "Nothing":

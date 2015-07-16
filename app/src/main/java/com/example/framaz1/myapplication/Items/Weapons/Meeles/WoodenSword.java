@@ -10,8 +10,8 @@ public class WoodenSword extends MeeleWeapon {
     public WoodenSword()
     {
         super();
-        name="WoodenSword";
-        description="Just a wooden sword";
+        name="Wooden Sword";
+        description="12354654561 12316857498 12321 4564 1231 8789 44422 22";
         picture= AllBitmaps.woodenSword;
         strNeeded=3;
         agiNeeded=2;

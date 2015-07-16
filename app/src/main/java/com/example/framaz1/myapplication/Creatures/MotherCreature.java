@@ -12,11 +12,13 @@ import java.util.LinkedList;
 
 
 public class MotherCreature {
-    public int health,mana,name;
+    public int health,mana,name,maxHP;
     public boolean aggred;
     public int str,agi,intel,deffense,attack;
     public int xCoordinates,yCoordinates;
     public int drawId;
+    public int lvl,lvlUps,experience;
+    public int expOnDeath;
     public int maxVision;
     public LinkedList<String> pathing;
     public MotherItem helmet,bodyWear,weapon,ring1,ring2,jewel;
@@ -32,6 +34,8 @@ public class MotherCreature {
         weapon=new EmptyItem();
         ring1=new EmptyItem();
         ring2=new EmptyItem();
+        lvl=1;
+        lvlUps=0;
         jewel=new EmptyItem();
         pathing=new LinkedList<String>();
         orientatedToRight=true;
