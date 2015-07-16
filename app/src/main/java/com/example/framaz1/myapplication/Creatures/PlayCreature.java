@@ -17,6 +17,8 @@ public class PlayCreature extends MotherCreature {
         super();
         health=10;
         maxHP=health;
+        mana=10;
+        maxMana=15;
         maxVision=10000;
         drawId=101;
         str=10;
@@ -212,12 +214,15 @@ public class PlayCreature extends MotherCreature {
                                 maxHP += 5;
                                 break;
                             case 1:
-                                str++;
+                                maxMana += 5;
                                 break;
                             case 2:
-                                intel++;
+                                str++;
                                 break;
                             case 3:
+                                intel++;
+                                break;
+                            case 4:
                                 agi++;
                                 break;
                         }

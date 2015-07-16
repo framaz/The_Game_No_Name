@@ -55,7 +55,7 @@ public class TouchAndThreadParams {
                     Game.whereToGoY<Params.displaySettings.widthPixels-(Params.displaySettings.widthPixels/2-AllBitmaps.statsView.getHeight()/2)) {
                 if(Game.whereToGoY>246*widthOfInv/288+Params.displaySettings.widthPixels/2-AllBitmaps.statsView.getWidth()/2 &&
                         Game.whereToGoX>54*widthOfInv/288+Params.displaySettings.heightPixels/2-AllBitmaps.statsView.getHeight()/2 &&
-                        Game.whereToGoX<240*widthOfInv/288+Params.displaySettings.heightPixels/2-AllBitmaps.statsView.getHeight()/2)
+                        Game.whereToGoX<286*widthOfInv/288+Params.displaySettings.heightPixels/2-AllBitmaps.statsView.getHeight()/2)
                     return "StatUp";
             }
             else
@@ -349,9 +349,10 @@ public class TouchAndThreadParams {
         //169 - Center
         canvas=drawMultiLineText(canvas,Integer.toString(Game.player.lvlUps),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+9*widthOfInv/288,heightToOff+26*widthOfInv/288,4);
         canvas=drawMultiLineText(canvas,Integer.toString(Game.player.maxHP),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+60*widthOfInv/288,heightToOff+200*widthOfInv/288,4);
-        canvas=drawMultiLineText(canvas,Integer.toString(Game.player.str),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+104*widthOfInv/288,heightToOff+200*widthOfInv/288,4);
-        canvas=drawMultiLineText(canvas,Integer.toString(Game.player.intel),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+150*widthOfInv/288,heightToOff+200*widthOfInv/288,4);
-        canvas=drawMultiLineText(canvas,Integer.toString(Game.player.agi),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+196*widthOfInv/288,heightToOff+200*widthOfInv/288,4);
+        canvas=drawMultiLineText(canvas,Integer.toString(Game.player.maxMana),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+106*widthOfInv/288,heightToOff+200*widthOfInv/288,4);
+        canvas=drawMultiLineText(canvas,Integer.toString(Game.player.str),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+152*widthOfInv/288,heightToOff+200*widthOfInv/288,4);
+        canvas=drawMultiLineText(canvas,Integer.toString(Game.player.intel),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+198*widthOfInv/288,heightToOff+200*widthOfInv/288,4);
+        canvas=drawMultiLineText(canvas,Integer.toString(Game.player.agi),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+244*widthOfInv/288,heightToOff+200*widthOfInv/288,4);
         //246 - for plus
         if(Game.player.lvlUps>0) {
             picture = AllBitmaps.plus;
@@ -360,6 +361,7 @@ public class TouchAndThreadParams {
             canvas.drawBitmap(picture,246*widthOfInv/288+widthToOff,104*widthOfInv/288+heightToOff,null);
             canvas.drawBitmap(picture,246*widthOfInv/288+widthToOff,150*widthOfInv/288+heightToOff,null);
             canvas.drawBitmap(picture,246*widthOfInv/288+widthToOff,196*widthOfInv/288+heightToOff,null);
+            canvas.drawBitmap(picture,246*widthOfInv/288+widthToOff,242*widthOfInv/288+heightToOff,null);
         }
         return canvas;
     }

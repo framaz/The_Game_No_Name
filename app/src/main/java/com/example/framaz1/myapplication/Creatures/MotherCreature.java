@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 
 public class MotherCreature {
-    public int health,mana,name,maxHP;
+    public int health,mana,name,maxHP,maxMana;
     public boolean aggred;
     public int str,agi,intel,deffense,attack;
     public int xCoordinates,yCoordinates;
@@ -41,6 +41,7 @@ public class MotherCreature {
         orientatedToRight=true;
         moveDelay=100;
         gold=300;
+        maxMana=5;
         items=new MotherItem[20];
         for(int i=0;i<20;i++)
             items[i]=new EmptyItem();
