@@ -107,8 +107,9 @@ public class AllBitmaps {
         centerBar=Bitmap.createScaledBitmap(    centerBar   ,  1  ,    centerBar   .getHeight()*Params.iconOversize,false);
         healthBar=Bitmap.createScaledBitmap(healthBar,1,12,false);
         healthBar=Bitmap.createScaledBitmap(    healthBar   ,  1  ,    healthBar   .getHeight()*Params.iconOversize,false);
-
+        manaBar=Bitmap.createScaledBitmap(manaBar,1,12,false);
         manaBar=Bitmap.createScaledBitmap(    manaBar   ,  1  ,    manaBar   .getHeight()*Params.iconOversize,false);
+        expBar=Bitmap.createScaledBitmap(expBar,1,12,false);
         expBar=Bitmap.createScaledBitmap(    expBar   ,  1  ,    expBar   .getHeight()*Params.iconOversize,false);
    //     woodenSword=Bitmap.createScaledBitmap(    woodenSword   ,   woodenSword   .getWidth()*Params.iconOversize,    woodenSword   .getHeight()*Params.iconOversize,false);
         standartIconSize*=Params.iconOversize;

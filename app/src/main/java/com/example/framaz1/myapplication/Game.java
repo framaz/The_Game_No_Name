@@ -270,8 +270,10 @@ public class Game {
     {
         if(toWhere>=0) {
             if (gamedepths[toWhere].generated == false) {
-                if (toWhere < 5)
-                    gamedepths[toWhere] = new ShallowDungeon();
+                if (toWhere < 5) {
+                    gamedepths[toWhere] = new ShallowDungeon(toWhere);
+                    gamedepths[toWhere].generateTheField();
+                }
                 //TODO more levels
             }
             boolean doing=true;
@@ -288,5 +290,19 @@ public class Game {
             Params.displayX=player.yCoordinates*Params.size;
             layer = toWhere;
         }
+    }
+    public static void placeCreature(int what,int whereDepth,int whereX,int whereY)
+    {
+        MotherCreature creature=new MotherCreature();
+        switch(what)
+        {
+            case 102:
+                creature=new Goblin();
+                creature.xCoordinates=whereX;
+                creature.yCoordinates=whereY;
+                break;
+        }
+        gamedepths[whereDepth].field[whereX][whereY].isMobHere=true;
+        gamedepths[whereDepth].creatures.add(creature);
     }
 }

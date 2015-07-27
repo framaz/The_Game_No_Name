@@ -1,5 +1,6 @@
 package com.example.framaz1.myapplication.Map_etc.DungeonTypes;
 
+import com.example.framaz1.myapplication.Game;
 import com.example.framaz1.myapplication.Map_etc.Mothermap;
 import com.example.framaz1.myapplication.Map_etc.RoomHelper;
 import com.example.framaz1.myapplication.Tiles.StandardDungeon.DungeonDownStairway;
@@ -12,7 +13,10 @@ public class ShallowDungeon extends Mothermap {
     public ShallowDungeon()
     {
         super();
-        generateTheField();
+    }
+    public ShallowDungeon(int where)
+    {
+        super(where);
     }
     @Override
     public void generateTheField()
@@ -92,6 +96,14 @@ public class ShallowDungeon extends Mothermap {
 
                 field[x][y]=new DungeonUpStairway();
                 field[x][y].linker=i+5;
+                i++;
+            }
+        }
+        for(i=0;i<50;i=i) {
+            x=(int)(Math.random()*100);
+            y=(int)(Math.random()*100);
+            if(!field[y][x].iswall) {
+                Game.placeCreature(102,depth,x, y);
                 i++;
             }
         }

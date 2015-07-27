@@ -76,8 +76,16 @@ public class PlayCreature extends MotherCreature {
                             else
                             Params.centerOnPlayer();
                             move(pathing.poll(), Game.gamedepths[Game.layer].field[yCoordinates][xCoordinates]);
-                        } else if (Math.max(Math.abs(yCoordinates - x), Math.abs(xCoordinates - y)) == 1)
+                        } else if (Math.max(Math.abs(yCoordinates - x), Math.abs(xCoordinates - y)) == 1) {
                             attack(y, x);
+                            int whom = Game.findCreatureByCoordinater(y, x);
+                            if(Game.gamedepths[Game.layer].creatures.get(whom).health<=0)
+                            {
+                                Game.player.addExp(Game.gamedepths[Game.layer].creatures.get(whom).expOnDeath);
+                                Game.gamedepths[Game.layer].creatures.get(whom).die();
+                                int asd=3;
+                            }
+                        }
                         else
                             break;
                     }

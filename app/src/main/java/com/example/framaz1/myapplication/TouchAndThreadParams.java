@@ -101,7 +101,15 @@ public class TouchAndThreadParams {
         }
         for(int i=0;i<Game.player.health*(Params.displaySettings.widthPixels-AllBitmaps.standartIconSize-picture.getWidth()-AllBitmaps.standartIconSize-picture.getWidth())/Game.player.maxHP;i++)
         {
-            canvas.drawBitmap(AllBitmaps.healthBar,AllBitmaps.standartIconSize+picture.getWidth()+i,4*picture.getHeight()/42,null);
+            canvas.drawBitmap(AllBitmaps.healthBar,AllBitmaps.standartIconSize+picture.getWidth()+i,6*picture.getHeight()/64,null);
+        }
+        for(int i=0;i<Game.player.mana*(Params.displaySettings.widthPixels-AllBitmaps.standartIconSize-picture.getWidth()-AllBitmaps.standartIconSize-picture.getWidth())/Game.player.maxMana;i++)
+        {
+            canvas.drawBitmap(AllBitmaps.manaBar,AllBitmaps.standartIconSize+picture.getWidth()+i,26*picture.getHeight()/64,null);
+        }
+        for(int i=0;i<Game.player.experience*(Params.displaySettings.widthPixels-AllBitmaps.standartIconSize-picture.getWidth()-AllBitmaps.standartIconSize-picture.getWidth())/(Game.player.lvl*10);i++)
+        {
+            canvas.drawBitmap(AllBitmaps.expBar,AllBitmaps.standartIconSize+picture.getWidth()+i,46*picture.getHeight()/64,null);
         }
         if(Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].goldHere>0||Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].itemsHere.size()>0) {
             picture = AllBitmaps.getItemHere;

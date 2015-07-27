@@ -16,8 +16,6 @@ public class MotherItem {
     public String getInformation() {
         return "";
     }
-
-    ;
     public double delay;
     public int strNeeded, agiNeeded, intNeeded;
     //public EffectEnum effect;
@@ -27,16 +25,12 @@ public class MotherItem {
 
     public void use() {
     }
-
-    ;
-
     public boolean use(MotherCreature mc) {
         if (!equip(mc)) {
             return false;
         }
         return true;
     }
-
     public boolean equip(MotherCreature creature) {
         switch (type) {
             case Helm:
@@ -101,7 +95,6 @@ public class MotherItem {
         }
         return false;
     }
-
     public boolean unEquip(MotherCreature creature) {
         int i;
         for(i=0;i<20&&!creature.items[i].name.equals("");i++)

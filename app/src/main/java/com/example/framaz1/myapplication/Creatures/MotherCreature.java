@@ -67,31 +67,31 @@ public class MotherCreature {
         switch (what)
         {
             case -5:
-                if(bodyWear.unEquip(this))
+                if(!bodyWear.name.equals("")&&bodyWear.unEquip(this))
                 {
                     bodyWear=new EmptyItem();
                     return true;
                 }
             case -4:
-                if(weapon.unEquip(this))
+                if(!weapon.name.equals("")&&weapon.unEquip(this))
                 {
                     weapon=new EmptyItem();
                     return true;
                 }
             case -3:
-                if(jewel.unEquip(this))
+                if(!jewel.name.equals("")&&jewel.unEquip(this))
                 {
                     jewel=new EmptyItem();
                     return true;
                 }
             case -2:
-                if(ring1.unEquip(this))
+                if(!ring1.name.equals("")&&ring1.unEquip(this))
                 {
                     ring1=new EmptyItem();
                     return true;
                 }
             case -1:
-                if(ring2.unEquip(this))
+                if(!ring2.name.equals("")&&ring2.unEquip(this))
                 {
                     ring2=new EmptyItem();
                     return true;
@@ -265,8 +265,7 @@ public class MotherCreature {
         Game.gamedepths[Game.layer].field[yCoordinates][xCoordinates].itemsHere.add(items[what]);
         items[what]=new EmptyItem();
     }
-    protected boolean take()
-    {
+    protected boolean take() {
         if(Game.gamedepths[Game.layer].field[yCoordinates][xCoordinates].goldHere>0)
         {
             gold+=Game.gamedepths[Game.layer].field[yCoordinates][xCoordinates].goldHere;
@@ -283,5 +282,33 @@ public class MotherCreature {
             }
         }
         return false;
+    }
+    protected void addExp(int howMany) {
+        experience+=howMany;
+        while(experience>=lvl*10)
+        {
+            lvlUps++;
+            experience-=lvl*10;
+            lvl++;
+        }
+    }
+    protected void die()
+    {
+        for(int i=0;i<20;i++)
+            if(!items[i].name.equals(""))
+                drop(i);
+        unEquip(-5);
+        unEquip(-4);
+        unEquip(-3);
+        unEquip(-2);
+        unEquip(-1);
+        for(int i=0;i<5;i++)
+            if(!items[i].name.equals(""))
+                drop(i);
+        if(gold>0)
+            Game.gamedepths[Game.layer].field[yCoordinates][xCoordinates].goldHere+=gold;
+        Game.gamedepths[Game.layer].field[xCoordinates][yCoordinates].isMobHere = false;
+        int whom = Game.findCreatureByCoordinater(xCoordinates, yCoordinates);
+        Game.gamedepths[Game.layer].creatures.remove(whom);
     }
 }
