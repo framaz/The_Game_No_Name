@@ -176,6 +176,8 @@ public class Game {
         if(pathFindingHelpArray[fromY][fromX]<100000)
         {
             int x=fromX,y=fromY;
+            if(gamedepths[layer].field[toY][toX].iswall)
+                pathFindingHelpArray[toY][toX]=100000000;
             while(x!=toX||y!=toY) {
 
                 //Вверх
@@ -245,7 +247,7 @@ public class Game {
                     path.add("DownLeft");
                     continue;
                 }
-
+                break;
             }
         }
         return path;

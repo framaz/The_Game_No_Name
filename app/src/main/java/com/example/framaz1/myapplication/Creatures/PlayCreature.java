@@ -75,6 +75,7 @@ public class PlayCreature extends MotherCreature {
                             }
                             else
                             Params.centerOnPlayer();
+                            if(pathing.size()>0)
                             move(pathing.poll(), Game.gamedepths[Game.layer].field[yCoordinates][xCoordinates]);
                         } else if (Math.max(Math.abs(yCoordinates - x), Math.abs(xCoordinates - y)) == 1) {
                             attack(y, x);
@@ -83,14 +84,14 @@ public class PlayCreature extends MotherCreature {
                             {
                                 Game.player.addExp(Game.gamedepths[Game.layer].creatures.get(whom).expOnDeath);
                                 Game.gamedepths[Game.layer].creatures.get(whom).die();
-                                int asd=3;
                             }
                         }
                         else
                             break;
                     }
-                    else
+                    else {
                         move(pathing.poll(), Game.gamedepths[Game.layer].field[yCoordinates][xCoordinates]);
+                    }
                     Game.doneMyTurn = true;
                     break;
 
