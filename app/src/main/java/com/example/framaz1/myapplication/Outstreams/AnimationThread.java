@@ -135,12 +135,12 @@ public class AnimationThread extends Thread {
                                     {
                                         if((fromX * Params.size - Params.displayY<100&&whom.xCoordinates - fromX<0)||(fromX * Params.size - Params.displayY>Params.displaySettings.widthPixels-100-Params.size&&whom.xCoordinates - fromX>0))
                                             Params.displayY=(int)(startY+(whom.xCoordinates - fromX) * Params.size * (time) / 250);
-                                        if((fromY * Params.size - Params.displayX<100&&whom.yCoordinates - fromY<0)||(fromY * Params.size - Params.displayX>Params.displaySettings.heightPixels-Params.size-AllBitmaps.waitIcon.getWidth()-100&&whom.yCoordinates - fromY>0))
+                                        if((fromY * Params.size - Params.displayX<100+AllBitmaps.standartIconSize&&whom.yCoordinates - fromY<0)||(fromY * Params.size - Params.displayX>Params.displaySettings.heightPixels-Params.size-AllBitmaps.waitIcon.getWidth()-100&&whom.yCoordinates - fromY>0))
                                             Params.displayX=(int)(startX+(whom.yCoordinates - fromY) * Params.size * (time) / 250);
                                         if (Params.displayY < 0)
                                             Params.displayY = 0;
-                                        if (Params.displayX < 0)
-                                            Params.displayX = 0;
+                                        if (Params.displayX < -AllBitmaps.standartIconSize)
+                                            Params.displayX = -AllBitmaps.standartIconSize;
                                         if (Params.displayX > 100 * Params.size - Params.displaySettings.heightPixels + AllBitmaps.standartIconSize)
                                             Params.displayX = 100 * Params.size - Params.displaySettings.heightPixels + AllBitmaps.standartIconSize;
                                         if (Params.displayY > 100 * Params.size - Params.displaySettings.widthPixels)

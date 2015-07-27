@@ -64,7 +64,7 @@ public class Params {
             displayX = Game.player.yCoordinates * size + size / 2 - Params.displaySettings.heightPixels / 2;
             displayY = Game.player.xCoordinates * size + size / 2 - Params.displaySettings.widthPixels / 2;
 
-        if(displayX<0) displayX=0;
+        if(displayX<-AllBitmaps.standartIconSize) displayX=-AllBitmaps.standartIconSize;
         if(displayY<0) displayY=0;
         if (Params.displayX > 100 * Params.size - Params.displaySettings.heightPixels+AllBitmaps.standartIconSize+38)
             Params.displayX = 100 * Params.size - Params.displaySettings.heightPixels+AllBitmaps.standartIconSize+38;

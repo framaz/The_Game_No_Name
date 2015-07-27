@@ -25,7 +25,7 @@ public class ShallowDungeon extends Mothermap {
 
         //Генерация первой комнаты
 
-        RoomHelper room = new RoomHelper((int)(Math.random()*84),(int)(Math.random()*84),(int)(Math.random()*7)+3,(int)(Math.random()*7)+3);
+        RoomHelper room = new RoomHelper(4+(int)(Math.random()*80),(int)(4+Math.random()*80),(int)(Math.random()*7)+3,(int)(Math.random()*7)+3);
         for(int i=room.y;i<room.y+room.heigth;i++)
             for(int j=room.x;j<room.x+room.width;j++)
                 field[i][j]=new DungeonFloor();

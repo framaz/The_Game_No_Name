@@ -48,8 +48,8 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
                             TouchAndThreadParams.flastX = (int) event.getY();
                             if (Params.displayY < 0)
                                 Params.displayY = 0;
-                            if (Params.displayX < 0)
-                                Params.displayX = 0;
+                            if (Params.displayX < -AllBitmaps.standartIconSize)
+                                Params.displayX = -AllBitmaps.standartIconSize;
                             if (Params.displayX > 100 * Params.size - Params.displaySettings.heightPixels + AllBitmaps.standartIconSize)
                                 Params.displayX = 100 * Params.size - Params.displaySettings.heightPixels + AllBitmaps.standartIconSize;
                             if (Params.displayY > 100 * Params.size - Params.displaySettings.widthPixels)

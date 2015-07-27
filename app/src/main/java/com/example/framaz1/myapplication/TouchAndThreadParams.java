@@ -89,6 +89,20 @@ public class TouchAndThreadParams {
         canvas.drawBitmap(picture, Params.displaySettings.widthPixels - 2 * AllBitmaps.standartIconSize, Params.displaySettings.heightPixels - AllBitmaps.standartIconSize , null);
         picture = AllBitmaps.statsIcon;
         canvas.drawBitmap(picture, 0, 0, null);
+        picture=AllBitmaps.menu;
+        canvas.drawBitmap(picture,Params.displaySettings.widthPixels-picture.getWidth(),0,null);
+        picture=AllBitmaps.leftBar;
+        canvas.drawBitmap(picture,AllBitmaps.standartIconSize,0,null);
+        picture=AllBitmaps.rightBar;
+        canvas.drawBitmap(picture,Params.displaySettings.widthPixels-AllBitmaps.standartIconSize-picture.getWidth(),0,null);
+        for(int i=AllBitmaps.standartIconSize+picture.getWidth();i<Params.displaySettings.widthPixels-AllBitmaps.standartIconSize-picture.getWidth();i++)
+        {
+            canvas.drawBitmap(AllBitmaps.centerBar,i,0,null);
+        }
+        for(int i=0;i<Game.player.health*(Params.displaySettings.widthPixels-AllBitmaps.standartIconSize-picture.getWidth()-AllBitmaps.standartIconSize-picture.getWidth())/Game.player.maxHP;i++)
+        {
+            canvas.drawBitmap(AllBitmaps.healthBar,AllBitmaps.standartIconSize+picture.getWidth()+i,4*picture.getHeight()/42,null);
+        }
         if(Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].goldHere>0||Game.gamedepths[Game.layer].field[Game.player.yCoordinates][Game.player.xCoordinates].itemsHere.size()>0) {
             picture = AllBitmaps.getItemHere;
             canvas.drawBitmap(picture, Params.displaySettings.widthPixels - picture.getWidth(), (100)*widthOfInv/288, null);

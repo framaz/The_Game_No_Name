@@ -12,6 +12,7 @@ public class AllBitmaps {
     private static Bitmap originaldungeonFloor= BitmapFactory.decodeResource(Params.resource,R.drawable.tile); // 1
     private static Bitmap dungeonFloor= BitmapFactory.decodeResource(Params.resource,R.drawable.tile); // 1
 
+
     private static Bitmap originaldungeonWall= BitmapFactory.decodeResource(Params.resource,R.drawable.wall); // 2
     private static Bitmap dungeonWall= BitmapFactory.decodeResource(Params.resource,R.drawable.wall);
 
@@ -45,15 +46,23 @@ public class AllBitmaps {
 
 
     public static int standartIconSize=64;
-    public static Bitmap woodenSword=BitmapFactory.decodeResource(Params.resource,R.drawable.wooden_sword);
+    public static Bitmap woodenSword=BitmapFactory.decodeResource(Params.resource, R.drawable.wooden_sword);
     public static Bitmap waitIcon=Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Params.resource, R.drawable.wait_icon), standartIconSize, standartIconSize, false);
-    public static Bitmap magicIcon=Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Params.resource,R.drawable.magic_icon),standartIconSize,standartIconSize,false);
+    public static Bitmap magicIcon=Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Params.resource, R.drawable.magic_icon), standartIconSize, standartIconSize, false);
     public static Bitmap inventoryImage=BitmapFactory.decodeResource(Params.resource, R.drawable.inventory);
     public static Bitmap itemView=BitmapFactory.decodeResource(Params.resource,R.drawable.item_view);
     public static Bitmap statsView=BitmapFactory.decodeResource(Params.resource,R.drawable.stats_view);
-    public static Bitmap plus=BitmapFactory.decodeResource(Params.resource,R.drawable.plus);
+    public static Bitmap plus=BitmapFactory.decodeResource(Params.resource, R.drawable.plus);
     public static Bitmap statsIcon=Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Params.resource, R.drawable.stats_icon), standartIconSize, standartIconSize, false);
     public static Bitmap inventoryIcon=Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Params.resource, R.drawable.inventory_icon), standartIconSize, standartIconSize,false);
+    public static Bitmap menu=Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Params.resource, R.drawable.menu), standartIconSize, standartIconSize,false);
+    public static Bitmap leftBar=  BitmapFactory.decodeResource(Params.resource, R.drawable.bars_left) ;
+    public static Bitmap rightBar= BitmapFactory.decodeResource(Params.resource, R.drawable.bars_right);
+    public static Bitmap centerBar=BitmapFactory.decodeResource(Params.resource, R.drawable.bars_center);
+    public static Bitmap healthBar=BitmapFactory.decodeResource(Params.resource, R.drawable.health_bar);
+    public static Bitmap manaBar=BitmapFactory.decodeResource(Params.resource, R.drawable.mana_bar);
+    public static Bitmap expBar=BitmapFactory.decodeResource(Params.resource, R.drawable.exp_bar);
+
     public static Bitmap equip= BitmapFactory.decodeResource(Params.resource, R.drawable.equip);
     public static Bitmap unequip= BitmapFactory.decodeResource(Params.resource,R.drawable.unequip);
     public static Bitmap drop= BitmapFactory.decodeResource(Params.resource,R.drawable.drop);
@@ -85,9 +94,22 @@ public class AllBitmaps {
         itemView=Bitmap.createScaledBitmap(    itemView   ,   itemView   .getWidth()*Params.iconOversize,    itemView   .getHeight()*Params.iconOversize,false);
         inventoryImage=Bitmap.createScaledBitmap(    inventoryImage   ,   inventoryImage   .getWidth()*Params.iconOversize,    inventoryImage   .getHeight()*Params.iconOversize,false);
         statsView=Bitmap.createScaledBitmap(    statsView   ,   statsView   .getWidth()*Params.iconOversize,    statsView   .getHeight()*Params.iconOversize,false);
+
         magicIcon=Bitmap.createScaledBitmap(    magicIcon   ,   magicIcon   .getWidth()*Params.iconOversize,    magicIcon   .getHeight()*Params.iconOversize,false);
         waitIcon=Bitmap.createScaledBitmap(    waitIcon   ,   waitIcon   .getWidth()*Params.iconOversize,    waitIcon   .getHeight()*Params.iconOversize,false);
         statsIcon=Bitmap.createScaledBitmap(    statsIcon   ,   statsIcon   .getWidth()*Params.iconOversize,    statsIcon   .getHeight()*Params.iconOversize,false);
+        menu=Bitmap.createScaledBitmap(    menu   ,   menu   .getWidth()*Params.iconOversize,    menu   .getHeight()*Params.iconOversize,false);
+        leftBar=Bitmap.createScaledBitmap(leftBar,leftBar.getWidth(),standartIconSize,false);
+        leftBar=Bitmap.createScaledBitmap(    leftBar   ,   leftBar   .getWidth()*Params.iconOversize,    leftBar   .getHeight()*Params.iconOversize,false);
+        rightBar=Bitmap.createScaledBitmap(rightBar,rightBar.getWidth(),standartIconSize,false);
+        rightBar=Bitmap.createScaledBitmap(    rightBar   ,   rightBar .getWidth()*Params.iconOversize,    rightBar   .getHeight()*Params.iconOversize,false);
+        centerBar=Bitmap.createScaledBitmap(centerBar,1,standartIconSize,false);
+        centerBar=Bitmap.createScaledBitmap(    centerBar   ,  1  ,    centerBar   .getHeight()*Params.iconOversize,false);
+        healthBar=Bitmap.createScaledBitmap(healthBar,1,12,false);
+        healthBar=Bitmap.createScaledBitmap(    healthBar   ,  1  ,    healthBar   .getHeight()*Params.iconOversize,false);
+
+        manaBar=Bitmap.createScaledBitmap(    manaBar   ,  1  ,    manaBar   .getHeight()*Params.iconOversize,false);
+        expBar=Bitmap.createScaledBitmap(    expBar   ,  1  ,    expBar   .getHeight()*Params.iconOversize,false);
    //     woodenSword=Bitmap.createScaledBitmap(    woodenSword   ,   woodenSword   .getWidth()*Params.iconOversize,    woodenSword   .getHeight()*Params.iconOversize,false);
         standartIconSize*=Params.iconOversize;
 
