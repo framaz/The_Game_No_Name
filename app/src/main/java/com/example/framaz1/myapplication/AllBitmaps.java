@@ -22,7 +22,11 @@ public class AllBitmaps {
     private static Bitmap originalladderUp = BitmapFactory.decodeResource(Params.resource,R.drawable.ladder_up); //4
     private static Bitmap ladderUp = BitmapFactory.decodeResource(Params.resource,R.drawable.ladder_up); //4
 
-                     //Character   //101
+    private static Bitmap originalshadow=BitmapFactory.decodeResource(Params.resource,R.drawable.shadow);
+    public static Bitmap  shadow=BitmapFactory.decodeResource(Params.resource,R.drawable.shadow);
+
+
+    //Character   //101
 
     private static Bitmap originalcharacter = BitmapFactory.decodeResource(Params.resource, R.drawable.character);
     private static Bitmap character = BitmapFactory.decodeResource(Params.resource, R.drawable.character);
@@ -140,7 +144,7 @@ public class AllBitmaps {
         goblin=Bitmap.createScaledBitmap(originalgoblin,Params.size,Params.size,false);
         ladderDown=Bitmap.createScaledBitmap(originalladderDown,Params.size,Params.size,false);
         ladderUp=Bitmap.createScaledBitmap(originalladderUp,Params.size,Params.size,false);
-
+        shadow=Bitmap.createScaledBitmap(originalshadow, Params.size, Params.size, false);
         for(int i=0;i< originalcharacterMove.size();i++) {
             characterMove.clear();
             characterMove.add(Bitmap.createScaledBitmap(originalcharacterMove.get(i), Params.size, Params.size, false));

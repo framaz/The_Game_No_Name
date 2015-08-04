@@ -18,6 +18,7 @@ public class Tile {
     public int goldHere;
     public boolean interractable;
     public int drawId;
+    public boolean wasSeen;
     public Stack<MotherItem> itemsHere;
     public int linker;//1-5 downstair 6-10 upstair
     public Tile()
@@ -26,6 +27,7 @@ public class Tile {
         itemsHere=new Stack<MotherItem>();
         goldHere=0;
         movedelay=1;
+        wasSeen=false;
         interractable=false;
         iswall=false;
         linker=-1;

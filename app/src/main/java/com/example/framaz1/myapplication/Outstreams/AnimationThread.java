@@ -59,7 +59,7 @@ public class AnimationThread extends Thread {
                     case 1: {
                         long startTime = System.currentTimeMillis();
                         LinkedList<Bitmap> animation=AllBitmaps.getMoveAnimationById(whom.drawId);
-                        while (System.currentTimeMillis() < startTime + 250) {
+                        while (System.currentTimeMillis() < startTime + 150) {
                         int startX=Params.displayX,startY=Params.displayY;
                         //    canvas = surfaceHolder.lockCanvas(null);
                         //    canvas.drawBitmap(Game.gamedepths[Game.layer].field[fromY][fromX].picture, fromX * Params.size - Params.displayY, fromY * Params.size - Params.displayX, null);
@@ -113,11 +113,13 @@ public class AnimationThread extends Thread {
                                 }
                                 for (int i = 0; i < Game.gamedepths[Game.layer].creatures.size(); i++) {
                                     MotherCreature ch = Game.gamedepths[Game.layer].creatures.get(i);
-                                    picture = AllBitmaps.getPictureById(ch.drawId);
-                                    if(whom.xCoordinates!=ch.xCoordinates||whom.yCoordinates!=ch.yCoordinates) {
-                                        if(!ch.orientatedToRight)
-                                            picture=Bitmap.createScaledBitmap(picture,-picture.getWidth(),picture.getHeight(),false);
-                                        canvas.drawBitmap(picture, ch.xCoordinates * Params.size - Params.displayY, ch.yCoordinates * Params.size - Params.displayX, null);
+                                    if(Game.isSeen[ch.yCoordinates][ch.xCoordinates]) {
+                                        picture = AllBitmaps.getPictureById(ch.drawId);
+                                        if (whom.xCoordinates != ch.xCoordinates || whom.yCoordinates != ch.yCoordinates) {
+                                            if (!ch.orientatedToRight)
+                                                picture = Bitmap.createScaledBitmap(picture, -picture.getWidth(), picture.getHeight(), false);
+                                            canvas.drawBitmap(picture, ch.xCoordinates * Params.size - Params.displayY, ch.yCoordinates * Params.size - Params.displayX, null);
+                                        }
                                     }
                                 }
 
@@ -125,18 +127,18 @@ public class AnimationThread extends Thread {
 
                                 long thisTime=System.currentTimeMillis();
                                 long time=thisTime - startTime;
-                                if(time<=250) {
+                                if(time<=150) {
                                     if(time==0) time=1;
-                                    int i = (int) (time) /(255/ animation.size());
+                                    int i = (int) (time) /(155/ animation.size());
                                     picture=animation.get(i);
                                     if(whom.orientatedToRight==false)
                                         picture=Bitmap.createScaledBitmap(picture,-picture.getWidth(),picture.getHeight(),false);
                                     if(Game.player.drawId==whom.drawId)
                                     {
                                         if((fromX * Params.size - Params.displayY<100&&whom.xCoordinates - fromX<0)||(fromX * Params.size - Params.displayY>Params.displaySettings.widthPixels-100-Params.size&&whom.xCoordinates - fromX>0))
-                                            Params.displayY=(int)(startY+(whom.xCoordinates - fromX) * Params.size * (time) / 250);
+                                            Params.displayY=(int)(startY+(whom.xCoordinates - fromX) * Params.size * (time) / 150);
                                         if((fromY * Params.size - Params.displayX<100+AllBitmaps.standartIconSize&&whom.yCoordinates - fromY<0)||(fromY * Params.size - Params.displayX>Params.displaySettings.heightPixels-Params.size-AllBitmaps.waitIcon.getWidth()-100&&whom.yCoordinates - fromY>0))
-                                            Params.displayX=(int)(startX+(whom.yCoordinates - fromY) * Params.size * (time) / 250);
+                                            Params.displayX=(int)(startX+(whom.yCoordinates - fromY) * Params.size * (time) / 150);
                                         if (Params.displayY < 0)
                                             Params.displayY = 0;
                                         if (Params.displayX < -AllBitmaps.standartIconSize)
@@ -146,8 +148,8 @@ public class AnimationThread extends Thread {
                                         if (Params.displayY > 100 * Params.size - Params.displaySettings.widthPixels)
                                             Params.displayY = 100 * Params.size - Params.displaySettings.widthPixels;
                                     }
-                                    canvas.drawBitmap(picture, fromX * Params.size - Params.displayY + (whom.xCoordinates - fromX) * Params.size * (time) / 250,
-                                            fromY * Params.size - Params.displayX + (whom.yCoordinates - fromY) * Params.size * (time) / 250, null);
+                                    canvas.drawBitmap(picture, fromX * Params.size - Params.displayY + (whom.xCoordinates - fromX) * Params.size * (time) / 150,
+                                            fromY * Params.size - Params.displayX + (whom.yCoordinates - fromY) * Params.size * (time) / 150, null);
 
                                 }
                                 else {

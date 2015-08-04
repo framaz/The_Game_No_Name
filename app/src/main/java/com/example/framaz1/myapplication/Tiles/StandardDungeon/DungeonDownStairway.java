@@ -12,6 +12,7 @@ import com.example.framaz1.myapplication.Tiles.Tile;
  */
 public class DungeonDownStairway extends DownStairway {
     public DungeonDownStairway() {
+        super();
         interractable=true;
         drawId=3;
     }

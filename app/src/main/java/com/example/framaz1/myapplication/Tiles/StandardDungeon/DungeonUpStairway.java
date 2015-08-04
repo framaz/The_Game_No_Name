@@ -9,6 +9,6 @@ import com.example.framaz1.myapplication.Tiles.UpStairway;
  */
 public class DungeonUpStairway extends UpStairway {
     public DungeonUpStairway() {
-        drawId= 4;
+        super();drawId= 4;
     }
 }

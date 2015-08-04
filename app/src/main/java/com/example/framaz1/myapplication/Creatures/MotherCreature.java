@@ -150,11 +150,14 @@ public class MotherCreature {
                         orientatedToRight=true;
                         break;
                 }
-               TouchAndThreadParams.animationSync.notifyAll();
-               try {
-                   TouchAndThreadParams.animationSync.wait();
+            if(Game.isSeen[yCoordinates][xCoordinates]) {
+                TouchAndThreadParams.animationSync.notifyAll();
+                try {
+                    TouchAndThreadParams.animationSync.wait();
 
-               } catch (InterruptedException e) {}
+                } catch (InterruptedException e) {
+                }
+            }
 
            //     TouchAndThreadParams.outStreamSync.notifyAll();
 

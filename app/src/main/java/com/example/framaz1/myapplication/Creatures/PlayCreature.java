@@ -3,7 +3,9 @@ package com.example.framaz1.myapplication.Creatures;
 import com.example.framaz1.myapplication.AllBitmaps;
 import com.example.framaz1.myapplication.Game;
 import com.example.framaz1.myapplication.Items.Weapons.Meeles.WoodenSword;
+import com.example.framaz1.myapplication.MainGameActivity;
 import com.example.framaz1.myapplication.Params;
+import com.example.framaz1.myapplication.Tiles.Tile;
 import com.example.framaz1.myapplication.TouchAndThreadParams;
 
 import java.util.LinkedList;
@@ -56,7 +58,7 @@ public class PlayCreature extends MotherCreature {
                         int x, y;
                         y = (Game.whereToGoY + Params.displayY) / Params.size;
                         x = (Game.whereToGoX + Params.displayX) / Params.size;
-                        if (Math.max(Math.abs(yCoordinates - x), Math.abs(xCoordinates - y)) < 2 && Game.gamedepths[Game.layer].field[x][y].iswall == true)
+                        if (Math.max(Math.abs(yCoordinates - x), Math.abs(xCoordinates - y)) < 2 && Game.gamedepths[Game.layer].field[x][y].iswall||!Game.gamedepths[Game.layer].field[x][y].wasSeen)
                             continue point;
                         if ((Game.gamedepths[Game.layer].field[x][y + 1].iswall || Game.gamedepths[Game.layer].field[x][y + 1].isMobHere) &&
                                 (Game.gamedepths[Game.layer].field[x + 1][y + 1].iswall || Game.gamedepths[Game.layer].field[x + 1][y + 1].isMobHere) &&
@@ -253,6 +255,60 @@ public class PlayCreature extends MotherCreature {
                 }
             }
 
+        }
+    }
+    @Override
+    protected void move(String str,Tile wherefrom) {
+        synchronized (TouchAndThreadParams.animationSync) {
+            toWait = (int) (moveDelay * wherefrom.movedelay);
+            Game.gamedepths[Game.layer].field[yCoordinates][xCoordinates].isMobHere = false;
+            MainGameActivity.sf.animThread.setMoveAnimation(this, xCoordinates, yCoordinates);
+            switch (str) {
+                case "Up":
+                    yCoordinates--;
+                    break;
+                case "Down":
+                    yCoordinates++;
+                    break;
+                case "Left":
+                    xCoordinates--;
+                    orientatedToRight=false;
+                    break;
+                case "Right":
+                    xCoordinates++;
+                    orientatedToRight=true;
+                    break;
+                case "UpLeft":
+                    xCoordinates--;
+                    orientatedToRight=false;
+                    yCoordinates--;
+                    break;
+                case "UpRight":
+                    yCoordinates--;
+                    xCoordinates++;
+                    orientatedToRight=true;
+                    break;
+                case "DownLeft":
+                    yCoordinates++;
+                    xCoordinates--;
+                    orientatedToRight=false;
+                    break;
+                case "DownRight":
+                    yCoordinates++;
+                    xCoordinates++;
+                    orientatedToRight=true;
+                    break;
+            }
+            TouchAndThreadParams.animationSync.notifyAll();
+            try {
+                TouchAndThreadParams.animationSync.wait();
+
+            } catch (InterruptedException e) {}
+
+            //     TouchAndThreadParams.outStreamSync.notifyAll();
+
+            Game.fieldOfView();
+            Game.gamedepths[Game.layer].field[yCoordinates][xCoordinates].isMobHere = true;
         }
     }
 }

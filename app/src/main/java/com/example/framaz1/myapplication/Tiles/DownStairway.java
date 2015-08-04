@@ -10,6 +10,7 @@ import com.example.framaz1.myapplication.Params;
 public class DownStairway extends Tile {
     public DownStairway()
     {
+        super();
         interractable=true;
     }
     @Override

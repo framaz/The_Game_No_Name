@@ -25,7 +25,7 @@ public class Game {
     public static int whereToGoX = -1, whereToGoY = -1;
     public static int pathFindingHelpArray[][] = new int[100][100];
     public static PlayCreature player = new PlayCreature();
-
+    public static boolean isSeen[][]=new boolean[100][100];
     public static void gaming() {
         Object waitingThing = new Object();
         synchronized (waitingThing) {
@@ -54,6 +54,7 @@ public class Game {
                     gamedepths[layer].field[98][3]=new DungeonWall();
                     gamedepths[layer].field[3][98]=new DungeonWall();
                     gamedepths[layer].field[5][2].itemsHere.add(new WoodenSword());
+                    fieldOfView();
                     TouchAndThreadParams.outStreamSync.notifyAll();
                     for(i=1;i<100;i++)
                         gamedepths[i]=new Mothermap();
@@ -291,6 +292,7 @@ public class Game {
             Params.displayY=player.xCoordinates*Params.size;
             Params.displayX=player.yCoordinates*Params.size;
             layer = toWhere;
+            fieldOfView();
         }
     }
     public static void placeCreature(int what,int whereDepth,int whereX,int whereY)
@@ -306,5 +308,160 @@ public class Game {
         }
         gamedepths[whereDepth].field[whereX][whereY].isMobHere=true;
         gamedepths[whereDepth].creatures.add(creature);
+    }
+    public static void fieldOfView(){
+        int startX=player.xCoordinates;
+        int startY=player.yCoordinates;
+        double yPos,xPos;
+        double k,b;
+        double angle=0.085;
+        for(int i=0;i<100;i++)
+            for(int j=0;j<100;j++)
+                isSeen[i][j]=false;
+
+        //To top
+
+        for(xPos=-100;xPos<200&&startY!=0;xPos++) {
+            yPos=-100;
+
+            if(startX-xPos!=0) {
+                k = ((startY - yPos) / (startX - xPos));
+                b = yPos - k * xPos;
+                if(Math.abs(k)<=1) {
+                    for (int i = startX; i<100 && i>=0&&(int)(Math.round(k*i+b))>=0&&(int)(Math.round(k*i+b))<100; i += (xPos - startX) / Math.abs(xPos - startX)) {
+                        isSeen[(int)(Math.round(k*i+b))][i]=true;
+                        gamedepths[layer].field[(int)(Math.round(k*i+b))][i].wasSeen=true;
+                        if(gamedepths[layer].field[(int)(Math.round(k*i+b))][i].iswall)
+                            break;
+                    }
+                }
+                else
+                    for (int i = startY;i<100 && i>=0&&(int)(Math.round((i-b)/k))>=0&&(int)(Math.round((i-b)/k))<100; i += (yPos - startY) / Math.abs(yPos - startY)) {
+                        isSeen[i][(int)(Math.round((i-b)/k))]=true;
+                        gamedepths[layer].field[i][(int)(Math.round((i-b)/k))].wasSeen=true;
+                        if(gamedepths[layer].field[i][(int)(Math.round((i-b)/k))].iswall)
+                            break;
+                    }
+            }
+            else
+                for (int i = startY;i<100 && i>=0; i += (yPos - startY) / Math.abs(yPos - startY)) {
+                    isSeen[i][startX]=true;
+                    gamedepths[layer].field[i][startX].wasSeen=true;
+                    if(gamedepths[layer].field[i][startX].iswall)
+                        break;
+                }
+        }
+
+        //To bot
+
+        for(xPos=-100;xPos<200&&startY!=99;xPos++) {
+            yPos=199;
+            if(startX-xPos!=0) {
+                k = ((startY - yPos) / (startX - xPos));
+                b = yPos - k * xPos;
+                if(Math.abs(k)<=1) {
+                    for (int i = startX; i<100 && i>=0&&(int)(Math.round(k*i+b))>=0&&(int)(Math.round(k*i+b))<100; i += (xPos - startX) / Math.abs(xPos - startX)) {
+                        isSeen[(int)(Math.round(k*i+b))][i]=true;
+                        gamedepths[layer].field[(int)(Math.round(k*i+b))][i].wasSeen=true;
+                        if(gamedepths[layer].field[(int)(Math.round(k*i+b))][i].iswall)
+                            break;
+                    }
+                }
+                else
+                    for (int i = startY; i<100 && i>=0&&(int)(Math.round((i-b)/k))>=0&&(int)(Math.round((i-b)/k))<100; i += (yPos - startY) / Math.abs(yPos - startY)) {
+                        isSeen[i][(int)(Math.round((i-b)/k))]=true;
+                        gamedepths[layer].field[i][(int)(Math.round((i-b)/k))].wasSeen=true;
+                        if(gamedepths[layer].field[i][(int)(Math.round((i-b)/k))].iswall)
+                            break;
+                    }
+            }
+            else
+                for (int i = startY; i<100 && i>=0; i += (yPos - startY) / Math.abs(yPos - startY)) {
+                    isSeen[i][startX]=true;
+                    gamedepths[layer].field[i][startX].wasSeen=true;
+                    if(gamedepths[layer].field[i][startX].iswall)
+                        break;
+                }
+        }
+
+        //To left
+        for(yPos=-100;yPos<200&&startX!=0;yPos++) {
+            xPos=-100;
+            if(startX-xPos!=0) {
+                k = ((startY - yPos) / (startX - xPos));
+                b = yPos - k * xPos;
+                if(Math.abs(k)<=1) {
+                    for (int i = startX; i<100 && i>=0&&(int)(Math.round(k*i+b))>=0&&(int)(Math.round(k*i+b))<100; i += (xPos - startX) / Math.abs(xPos - startX)) {
+                        isSeen[(int)(Math.round(k*i+b))][i]=true;
+                        gamedepths[layer].field[(int)(Math.round(k*i+b))][i].wasSeen=true;
+                        if(gamedepths[layer].field[(int)(Math.round(k*i+b))][i].iswall)
+                            break;
+                        /*else {
+                            if (k <= angle && k >= 0) {
+                                isSeen[(int) (Math.round(k * i + b - 1))][i] = true;
+                            }
+                            if (k >= -angle && k <= 0) {
+                                isSeen[(int) (Math.round(k * i + b + 1))][i] = true;
+                            }
+                        }*/
+                    }
+                }
+                else
+                    for (int i = startY;i<100 && i>=0&&(int)(Math.round((i-b)/k))>=0&&(int)(Math.round((i-b)/k))<100; i += (yPos - startY) / Math.abs(yPos - startY)) {
+                        isSeen[i][(int)(Math.round((i-b)/k))]=true;
+                        gamedepths[layer].field[i][(int)(Math.round((i-b)/k))].wasSeen=true;
+                        if(gamedepths[layer].field[i][(int)(Math.round((i-b)/k))].iswall)
+                            break;
+                    }
+            }
+            else
+                for (int i = startY; i<100 && i>=0; i += (yPos - startY) / Math.abs(yPos - startY)) {
+                    isSeen[i][startX]=true;
+                    gamedepths[layer].field[i][startX].wasSeen=true;
+                    if(gamedepths[layer].field[i][startX].iswall)
+                        break;
+                }
+        }
+
+        //To right
+
+        for(yPos=-100;yPos<200&&startX!=99;yPos++) {
+            xPos=199;
+            if(startX-xPos!=0) {
+                k = ((startY - yPos) / (startX - xPos));
+                b = yPos - k * xPos;
+                if(Math.abs(k)<=1) {
+                    for (int i = startX; i<100 && i>=0&&(int)(Math.round(k*i+b))>=0&&(int)(Math.round(k*i+b))<100; i += (xPos - startX) / Math.abs(xPos - startX)) {
+                        isSeen[(int)(Math.round(k*i+b))][i]=true;
+                        gamedepths[layer].field[(int)(Math.round(k*i+b))][i].wasSeen=true;
+                        if(gamedepths[layer].field[(int)(Math.round(k*i+b))][i].iswall)
+                            break;
+                      /*  else
+                        {
+                            if (k <= angle && k >= 0) {
+                                isSeen[(int) (Math.round(k * i + b - 1))][i] = true;
+                            }
+                            if (k >= -angle && k <= 0) {
+                                isSeen[(int) (Math.round(k * i + b + 1))][i] = true;
+                            }
+                        }*/
+                    }
+                }
+                else
+                    for (int i = startY;i<100 && i>=0&&(int)(Math.round((i-b)/k))>=0&&(int)(Math.round((i-b)/k))<100; i += (yPos - startY) / Math.abs(yPos - startY)) {
+                        isSeen[i][(int)(Math.round((i-b)/k))]=true;
+                        gamedepths[layer].field[i][(int)(Math.round((i-b)/k))].wasSeen=true;
+                        if(gamedepths[layer].field[i][(int)(Math.round((i-b)/k))].iswall)
+                            break;
+                    }
+            }
+            else
+                for (int i = startY; i<100 && i>=0; i += (yPos - startY) / Math.abs(yPos - startY)) {
+                    isSeen[i][startX]=true;
+                    gamedepths[layer].field[i][startX].wasSeen=true;
+                    if(gamedepths[layer].field[i][startX].iswall)
+                        break;
+                }
+        }
     }
 }

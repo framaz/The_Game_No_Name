@@ -22,7 +22,7 @@ public class ShallowDungeon extends Mothermap {
     public void generateTheField()
     {
         generated=true;
-        int n=(int)(Math.random()*20+29);
+        int n=(int)(Math.random()*10+10);
         for(int i=0;i<100;i++)
             for(int j=0;j<100;j++)
                 field[i][j]=new DungeonWall();
@@ -99,7 +99,7 @@ public class ShallowDungeon extends Mothermap {
                 i++;
             }
         }
-        for(i=0;i<50;i=i) {
+        for(i=0;i<10;i=i) {
             x=(int)(Math.random()*100);
             y=(int)(Math.random()*100);
             if(!field[y][x].iswall) {

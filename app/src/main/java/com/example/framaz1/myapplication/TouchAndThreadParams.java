@@ -9,6 +9,7 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 
+import com.example.framaz1.myapplication.Creatures.MotherCreature;
 import com.example.framaz1.myapplication.Items.EmptyItem;
 import com.example.framaz1.myapplication.Items.MotherItem;
 
@@ -367,7 +368,7 @@ public class TouchAndThreadParams {
         picture=AllBitmaps.getPictureById(101);
         picture=Bitmap.createScaledBitmap(picture,32*widthOfInv/288,32*widthOfInv/288,false);
         //   picture=Bitmap.createScaledBitmap(picture,(int)(picture.getWidth()*inventoryResize),(int)(picture.getHeight()*inventoryResize),false);
-        canvas.drawBitmap(picture,widthToOff+(int)(8*widthOfInv/288),heightToOff+(int)(8*heightOfInv/464),null);
+        canvas.drawBitmap(picture, widthToOff + (int) (8 * widthOfInv / 288), heightToOff + (int) (8 * heightOfInv / 464), null);
         //169 - Center
         canvas=drawMultiLineText(canvas,Integer.toString(Game.player.lvlUps),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+9*widthOfInv/288,heightToOff+26*widthOfInv/288,4);
         canvas=drawMultiLineText(canvas,Integer.toString(Game.player.maxHP),widthToOff+62*widthOfInv/288,widthToOff+267*widthOfInv/288,heightToOff+60*widthOfInv/288,heightToOff+200*widthOfInv/288,4);
@@ -397,13 +398,21 @@ public class TouchAndThreadParams {
         for (int i = startX; i <= endX+2; i++)
             for (int j = startY; j <= endY+2; j++) {
                 if (i >= 0 && j >= 0 && i < 100 && j < 100) {
-                    picture = AllBitmaps.getPictureById(Game.gamedepths[Game.layer].field[i][j].drawId);
-                    canvas.drawBitmap(picture, j * Params.size - Params.displayY, i * Params.size - Params.displayX, null);
-                    if(Game.gamedepths[Game.layer].field[i][j].goldHere>0)
-                        canvas.drawBitmap(Bitmap.createScaledBitmap(AllBitmaps.coins,Params.size,Params.size,false),j * Params.size - Params.displayY, i * Params.size - Params.displayX, null);
-                    else
-                        if(Game.gamedepths[Game.layer].field[i][j].itemsHere.size()>0)
-                            canvas.drawBitmap(Bitmap.createScaledBitmap(Game.gamedepths[Game.layer].field[i][j].itemsHere.peek().picture,Params.size,Params.size,false),j * Params.size - Params.displayY, i * Params.size - Params.displayX, null);
+                    if (Game.gamedepths[Game.layer].field[i][j].wasSeen) {
+                        picture = AllBitmaps.getPictureById(Game.gamedepths[Game.layer].field[i][j].drawId);
+                        canvas.drawBitmap(picture, j * Params.size - Params.displayY, i * Params.size - Params.displayX, null);
+                        if (Game.isSeen[i][j]) {
+                            if (Game.gamedepths[Game.layer].field[i][j].goldHere > 0)
+                                canvas.drawBitmap(Bitmap.createScaledBitmap(AllBitmaps.coins, Params.size, Params.size, false), j * Params.size - Params.displayY, i * Params.size - Params.displayX, null);
+                            else if (Game.gamedepths[Game.layer].field[i][j].itemsHere.size() > 0)
+                                canvas.drawBitmap(Bitmap.createScaledBitmap(Game.gamedepths[Game.layer].field[i][j].itemsHere.peek().picture, Params.size, Params.size, false), j * Params.size - Params.displayY, i * Params.size - Params.displayX, null);
+                        }
+                        else
+                        {
+                            picture = AllBitmaps.shadow;
+                            canvas.drawBitmap(picture, j * Params.size - Params.displayY, i * Params.size - Params.displayX, null);
+                        }
+                    }
                 }
             }
         return canvas;

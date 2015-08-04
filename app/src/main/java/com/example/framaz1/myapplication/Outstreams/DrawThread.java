@@ -63,10 +63,12 @@ class DrawThread extends Thread {
                     canvas.drawBitmap(picture, Game.player.xCoordinates * Params.size - Params.displayY, Game.player.yCoordinates * Params.size - Params.displayX, null);
                     for (int i = 0; i < Game.gamedepths[Game.layer].creatures.size(); i++) {
                         MotherCreature ch = Game.gamedepths[Game.layer].creatures.get(i);
-                        picture = AllBitmaps.getPictureById(ch.drawId);
-                        if(!ch.orientatedToRight)
-                            picture=Bitmap.createScaledBitmap(picture,-picture.getWidth(),picture.getHeight(),false);
-                        canvas.drawBitmap(picture, ch.xCoordinates * Params.size - Params.displayY, ch.yCoordinates * Params.size - Params.displayX, null);
+                        if(Game.isSeen[ch.yCoordinates][ch.xCoordinates]) {
+                            picture = AllBitmaps.getPictureById(ch.drawId);
+                            if (!ch.orientatedToRight)
+                                picture = Bitmap.createScaledBitmap(picture, -picture.getWidth(), picture.getHeight(), false);
+                            canvas.drawBitmap(picture, ch.xCoordinates * Params.size - Params.displayY, ch.yCoordinates * Params.size - Params.displayX, null);
+                        }
                     }
 
                     //Рисование меню
