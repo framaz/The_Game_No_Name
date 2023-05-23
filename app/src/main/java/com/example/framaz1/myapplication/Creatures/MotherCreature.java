@@ -28,6 +28,7 @@ public class MotherCreature {
     public int gold;
     public int toWait;
     public MotherItem items[];
+    public static final int inventoryLength = 20;
     public MotherCreature(){
         helmet=new EmptyItem();
         bodyWear=new EmptyItem();
@@ -42,10 +43,28 @@ public class MotherCreature {
         moveDelay=100;
         gold=300;
         maxMana=5;
-        items=new MotherItem[20];
-        for(int i=0;i<20;i++)
+        items=new MotherItem[inventoryLength];
+        for(int i=0;i<inventoryLength;i++)
             items[i]=new EmptyItem();
     }
+
+    public void applyBonuses(MotherItem item){
+        str += item.strBonus;
+        intel += item.intBonus;
+        agi += item.agiBonus;
+        weight += item.weight;
+        attack += item.attackBonus;
+    }
+
+    public void unapplyBonuses(MotherItem item){
+        str -= item.strBonus;
+        intel -= item.intBonus;
+        agi -= item.agiBonus;
+        weight -= item.weight;
+        attack -= item.attackBonus;
+    }
+
+
     public void behavior(){
         if(aggred)
         {
@@ -178,10 +197,10 @@ public class MotherCreature {
         toWait = (int) (moveDelay * weapon.delay);
         if(weight>str)
             toWait*=(weight*weight)/(str*str);
-        if(weapon.agiNeeded>agi)
-            toWait*=weapon.agiNeeded/agi;
-        if(weapon.strNeeded>str)
-            toWait*=weapon.strNeeded/str;
+        if(weapon.agilityNeeded >agi)
+            toWait*=weapon.agilityNeeded /agi;
+        if(weapon.strengthNeeded >str)
+            toWait*=weapon.strengthNeeded /str;
 
         //Whom to attack
 

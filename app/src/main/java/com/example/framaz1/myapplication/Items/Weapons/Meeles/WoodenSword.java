@@ -13,10 +13,10 @@ public class WoodenSword extends MeeleWeapon {
         name="Wooden Sword";
         description="12354654561 12316857498 12321 4564 1231 8789 44422 22";
         picture= AllBitmaps.woodenSword;
-        strNeeded=3;
-        agiNeeded=2;
-        intNeeded=0;
-        bonus=3;
+        strengthNeeded =3;
+        agilityNeeded =2;
+        intelligenceNeeded =0;
+        attackBonus =3;
         delay=1;
     }
 }

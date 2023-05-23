@@ -8,8 +8,6 @@ import com.example.framaz1.myapplication.Params;
 import com.example.framaz1.myapplication.Tiles.Tile;
 import com.example.framaz1.myapplication.TouchAndThreadParams;
 
-import java.util.LinkedList;
-
 /**
  * Created by framaz1 on 23.03.2015.
  */
@@ -178,13 +176,13 @@ public class PlayCreature extends MotherCreature {
                             else
                             {
 
-                                if (items[Params.itemToShow].equipable&&equip(Params.itemToShow)) {
+                                if (items[Params.itemToShow].canEquip &&equip(Params.itemToShow)) {
                                     Game.doneMyTurn = true;
                                     toWait=(int)moveDelay;
                                     Params.startGameField();
                                 }
                                 else
-                                    if(items[Params.itemToShow].equipable)
+                                    if(items[Params.itemToShow].canEquip)
                                     {
                                         Params.startInventory();
 
