@@ -10,6 +10,6 @@ public class MeeleWeapon extends MotherItem {
     public MeeleWeapon()
     {
         type= ItemType.MeeleWeapon;
-        equipable=true;
+        canEquip =true;
     }
 }

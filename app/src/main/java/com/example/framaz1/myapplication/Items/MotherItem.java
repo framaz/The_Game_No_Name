@@ -4,137 +4,89 @@ import android.graphics.Bitmap;
 
 import com.example.framaz1.myapplication.Creatures.MotherCreature;
 
+import java.util.Arrays;
+
 public class MotherItem {
     public ItemType type;
     public String name, description;
     public Bitmap picture;
-    public MotherItem()
-    {
-        equipable=false;
-        usable=false;
-    }
-    public String getInformation() {
-        return "";
-    }
-    public double delay;
-    public int strNeeded, agiNeeded, intNeeded;
-    //public EffectEnum effect;
-    public int weight;
-    public boolean equipable,usable;
-    public int bonus, strBonus, agiBonus, intBonus;
 
-    public void use() {
+    public double delay;
+    public int strengthNeeded, agilityNeeded, intelligenceNeeded;
+    public int weight;
+    public boolean canEquip, usable;
+    public int attackBonus, strBonus, agiBonus, intBonus;
+
+    public MotherItem() {
+        canEquip = false;
+        usable = false;
     }
-    public boolean use(MotherCreature mc) {
-        if (!equip(mc)) {
-            return false;
-        }
-        return true;
-    }
+
     public boolean equip(MotherCreature creature) {
+        boolean isEquipped = false;
         switch (type) {
             case Helm:
-                if (creature.helmet.name.equals("")) {
+                if (!creature.helmet.isEquipped()) {
                     creature.helmet = this;
-                    creature.str += strBonus;
-                    creature.intel += intBonus;
-                    creature.agi += agiBonus;
-                    creature.weight += weight;
-                    creature.deffense += bonus;
-                    return true;
-                } else return false;
+                    isEquipped = true;
+                }
+                break;
             case BodyWear:
-                if (creature.bodyWear.name.equals("")) {
+                if (!creature.bodyWear.isEquipped()) {
                     creature.bodyWear = this;
-                    creature.str += strBonus;
-                    creature.intel += intBonus;
-                    creature.agi += agiBonus;
-                    creature.weight += weight;
-                    creature.deffense += bonus;
-                    return true;
-                } else return false;
+                    isEquipped = true;
+                }
+                break;
             case MeeleWeapon:
             case RangedWeapon:
-                if (creature.weapon.name.equals("")) {
+                if (!creature.weapon.isEquipped()) {
                     creature.weapon = this;
-                    creature.str += strBonus;
-                    creature.intel += intBonus;
-                    creature.agi += agiBonus;
-                    creature.weight += weight;
-                    creature.attack+=bonus;
-                    return true;
-                } else return false;
-            case Jewel:
-                if (creature.jewel.name.equals("")) {
-                    creature.jewel = this;
-                    creature.str += strBonus;
-                    creature.intel += intBonus;
-                    creature.agi += agiBonus;
-                    creature.weight += weight;
-                    return true;
-                } else return false;
-            case Ring:
-                if (creature.ring1.name.equals("")) {
-                    creature.ring1 = this;
-                    creature.str += strBonus;
-                    creature.intel += intBonus;
-                    creature.agi += agiBonus;
-                    creature.weight += weight;
-                    return true;
-                } else {
-                    if (creature.ring2.name.equals("")) {
-                        creature.ring2 = this;
-                        creature.str += strBonus;
-                        creature.intel += intBonus;
-                        creature.agi += agiBonus;
-                        creature.weight += weight;
-                        return true;
-                    } else
-                        return false;
+                    isEquipped = true;
                 }
+                break;
+            case Jewel:
+                if (!creature.jewel.isEquipped()) {
+                    creature.jewel = this;
+                    isEquipped = true;
+                }
+                break;
+            case Ring:
+                if (!creature.ring1.isEquipped()) {
+                    creature.ring1 = this;
+                    isEquipped = true;
+                    break;
+                }
+
+                if (!creature.ring2.isEquipped()) {
+                    creature.ring2 = this;
+                    isEquipped = true;
+                }
+                break;
         }
-        return false;
+
+        creature.applyBonuses(this);
+        return isEquipped;
     }
+
     public boolean unEquip(MotherCreature creature) {
-        int i;
-        for(i=0;i<20&&!creature.items[i].name.equals("");i++)
-        {
-        }
-        if(i!=20) {
-            switch (type) {
-                case Helm:
-                    creature.str -= strBonus;
-                    creature.intel -= intBonus;
-                    creature.agi -= agiBonus;
-                    creature.weight -= weight;
-                    creature.deffense -= bonus;
-                case BodyWear:
-                    creature.str -= strBonus;
-                    creature.intel -= intBonus;
-                    creature.agi -= agiBonus;
-                    creature.weight -= weight;
-                    creature.deffense -= bonus;
-                case MeeleWeapon:
-                case RangedWeapon:
-                    creature.str -= strBonus;
-                    creature.intel -= intBonus;
-                    creature.agi -= agiBonus;
-                    creature.weight -= weight;
-                    creature.attack -= bonus;
-                case Jewel:
-                    creature.str -= strBonus;
-                    creature.intel -= intBonus;
-                    creature.agi -= agiBonus;
-                    creature.weight -= weight;
-                case Ring:
-                    creature.str -= strBonus;
-                    creature.intel -= intBonus;
-                    creature.agi -= agiBonus;
-                    creature.weight -= weight;
+        int emptyInventoryIndex = -1;
+
+        for (int i = 0; i < MotherCreature.inventoryLength; i++) {
+            if(!creature.items[i].isEquipped()) {
+                emptyInventoryIndex = i;
+                break;
             }
-            creature.items[i]=this;
+        }
+
+        if (emptyInventoryIndex != -1) {
+            creature.unapplyBonuses(this);
+            creature.items[emptyInventoryIndex] = this;
             return true;
         }
         return false;
+    }
+
+    public boolean isEquipped(){
+        return !name.equals("");
     }
 }
